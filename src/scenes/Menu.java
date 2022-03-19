@@ -1,5 +1,6 @@
 package scenes;
 
+import helperMethods.LoadSave;
 import main.Game;
 
 import javax.imageio.ImageIO;
