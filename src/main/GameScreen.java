@@ -3,10 +3,8 @@ package main;
 import inputs.KeyboardListener;
 import inputs.MyMouseListener;
 
-import javax.swing.JPanel;
-import java.awt.Dimension;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GameScreen extends JPanel {
     private Dimension size;

@@ -1,8 +1,6 @@
 package ui;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Color;
+import java.awt.*;
 
 public class MyButton {
     private int x, y, width, height;

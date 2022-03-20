@@ -1,7 +1,6 @@
 package inputs;
 
 import main.GameStates;
-import scenes.Playing;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

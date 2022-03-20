@@ -1,6 +1,6 @@
 package scenes;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public interface SceneMethods {
     public void render(Graphics graphics);
