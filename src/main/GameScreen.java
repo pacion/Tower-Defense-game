@@ -21,7 +21,7 @@ public class GameScreen extends JPanel {
     }
 
     public void initInputs() {
-        myMouseListener = new MyMouseListener();
+        myMouseListener = new MyMouseListener(game);
         keyboardListener = new KeyboardListener();
 
         addMouseListener(myMouseListener);
