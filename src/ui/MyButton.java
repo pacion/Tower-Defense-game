@@ -3,17 +3,32 @@ package ui;
 import java.awt.*;
 
 public class MyButton {
-    private int x, y, width, height;
+    public int x, y, width, height;
     private String text;
     private Rectangle bounds;
     private boolean mouseOver, mousePressed;
+    private int id;
 
+    // normal button
     public MyButton(String text, int x, int y, int width, int height) {
         this.text = text;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.id = -1;
+
+        initBounds();
+    }
+
+    // tile button
+    public MyButton(String text, int x, int y, int width, int height, int id) {
+        this.text = text;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.id = id;
 
         initBounds();
     }
@@ -73,5 +88,9 @@ public class MyButton {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public int getId() {
+        return id;
     }
 }

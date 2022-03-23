@@ -3,6 +3,7 @@ package scenes;
 import handlers.TileHandler;
 import helperMethods.LevelBuilder;
 import main.Game;
+import ui.BottomBar;
 import ui.MyButton;
 
 import java.awt.*;
@@ -13,19 +14,18 @@ import static main.GameStates.SetGameState;
 public class Playing extends GameScene implements SceneMethods{
     private int[][] lvl;
     private TileHandler tileHandler;
-    private MyButton buttonMenu;
+    private BottomBar bottomBar;
 
     public Playing(Game game) {
         super(game);
 
-        initButtons();
         lvl = LevelBuilder.getLevelData();
         tileHandler = new TileHandler();
-
+        bottomBar = new BottomBar(0, 640, 640, 100, this);
     }
 
-    private void initButtons() {
-        buttonMenu = new MyButton("Menu", 2, 2, 100, 30);
+    public TileHandler getTileHandler() {
+        return tileHandler;
     }
 
     @Override
@@ -36,35 +36,33 @@ public class Playing extends GameScene implements SceneMethods{
                 graphics.drawImage(tileHandler.getSprite(id), x, y, getGame());
             }
         }
-        
-        drawButtons(graphics);
-    }
 
-    private void drawButtons(Graphics graphics) {
-        buttonMenu.draw(graphics);
+        bottomBar.draw(graphics);
     }
 
     @Override
     public void mouseClicked(int x, int y) {
-        if (buttonMenu.getBounds().contains(x, y))
-            SetGameState(MENU);
+        if(y >= 640) {
+            bottomBar.mouseClicked(x, y);
+        }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        buttonMenu.setMouseOver(false);
-        if (buttonMenu.getBounds().contains(x, y))
-            buttonMenu.setMouseOver(true);
+        if(y >= 640) {
+            bottomBar.mouseMoved(x, y);
+        }
     }
 
     @Override
     public void mousePressed(int x, int y) {
-        if (buttonMenu.getBounds().contains(x, y))
-            buttonMenu.setMousePressed(true);
+        if(y >= 640) {
+            bottomBar.mousePressed(x, y);
+        }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        buttonMenu.resetBooleans();
+        bottomBar.mouseReleased(x, y);
     }
 }
