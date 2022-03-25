@@ -18,13 +18,17 @@ public class TileHandler {
 
     private void createTiles() {
         int id = 0;
-        tiles.add(GRASS = new Tile(getSprite(8, 1), id++, "Grass"));
-        tiles.add(WATER = new Tile(getSprite(9, 2), id++, "Water"));
-        tiles.add(ROAD = new Tile(getSprite(7, 2), id++, "Road"));
+        tiles.add(GRASS = new Tile(getSprite(9, 0), id++, "Grass"));
+        tiles.add(WATER = new Tile(getSprite(0, 0), id++, "Water"));
+        tiles.add(ROAD = new Tile(getSprite(8, 0), id++, "Road"));
     }
 
     private void loadAtlas() {
         atlas = LoadSave.getSpriteAtlas();
+    }
+
+    public Tile getTile(int id) {
+        return tiles.get(id);
     }
 
     public BufferedImage getSprite(int id) {
