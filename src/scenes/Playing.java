@@ -75,6 +75,9 @@ public class Playing extends GameScene implements SceneMethods{
             if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId())
                 return;
 
+            if(x <= 0 || y <= 0 || x >= 640 || y >= 740)
+                return;
+
             lastTileX = tileX;
             lastTileY = tileY;
             lastTileId = selectedTile.getId();
