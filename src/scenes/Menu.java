@@ -102,7 +102,7 @@ public class Menu extends GameScene implements SceneMethods{
     }
 
     private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/res/spriteatlas.png");
+        InputStream is = getClass().getResourceAsStream("/sprites/spriteatlas.png");
 
         try {
             image = ImageIO.read(is);
