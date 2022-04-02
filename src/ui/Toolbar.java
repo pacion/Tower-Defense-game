@@ -1,37 +1,25 @@
 package ui;
 
 import objects.Tile;
-import scenes.Playing;
+import scenes.Editing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static main.GameStates.MENU;
-import static main.GameStates.SetGameState;
+import static main.GameStates.*;
 
-public class BottomBar {
-    private int x, y, width, height;
+public class Toolbar extends Bar {
     private MyButton buttonMenu, buttonSave;
-    private Playing playing;
-    private ArrayList<MyButton> tileButtons = new ArrayList<>();
+    private Editing editing;
     private Tile selectedTile;
+    private ArrayList<MyButton> tileButtons = new ArrayList<>();
 
-    public BottomBar(int x, int y, int width, int height, Playing playing) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.playing = playing;
+    public Toolbar(int x, int y, int width, int height, Editing editing) {
+        super(x, y, width, height);
+        this.editing = editing;
 
         initButtons();
-    }
-
-    public void draw(Graphics graphics) {
-        graphics.setColor(new Color(180,180,108));
-        graphics.fillRect(x, y, width, height);
-
-        drawButtons(graphics);
     }
 
     private void initButtons() {
@@ -45,9 +33,16 @@ public class BottomBar {
         int xOffset = (int)(w * 1.1f);
 
         int index = 0;
-        for(Tile tile : playing.getTileHandler().tiles) {
+        for(Tile tile : editing.getGame().getTileManager().tiles) {
             tileButtons.add(new MyButton(tile.getName(), xStart + xOffset * index, yStart, w, h, index++));
         }
+    }
+
+    public void draw(Graphics graphics) {
+        graphics.setColor(new Color(180,180,108));
+        graphics.fillRect(x, y, width, height);
+
+        drawButtons(graphics);
     }
 
     private void drawButtons(Graphics graphics) {
@@ -73,7 +68,7 @@ public class BottomBar {
             if(button.isMouseOver())
                 graphics.setColor(Color.white);
             else
-                graphics.setColor(Color.black  );
+                graphics.setColor(Color.black);
 
             graphics.drawRect(button.x, button.y, button.width, button.height);
 
@@ -84,10 +79,13 @@ public class BottomBar {
         }
     }
 
-    public BufferedImage getButtonImage(int id) {
-        return playing.getTileHandler().getSprite(id);
+    private void saveLevel() {
+        editing.saveLevel();
     }
 
+    public BufferedImage getButtonImage(int id) {
+        return editing.getGame().getTileManager().getSprite(id);
+    }
 
     public void mouseClicked(int x, int y) {
         if (buttonMenu.getBounds().contains(x, y)) {
@@ -97,16 +95,12 @@ public class BottomBar {
         } else {
             for(MyButton button : tileButtons) {
                 if(button.getBounds().contains(x, y)) {
-                    selectedTile = playing.getTileHandler().getTile(button.getId());
-                    playing.setSelectedTile(selectedTile);
+                    selectedTile = editing.getGame().getTileManager().getTile(button.getId());
+                    editing.setSelectedTile(selectedTile);
                     return;
                 }
             }
         }
-    }
-
-    private void saveLevel() {
-        playing.saveLevel();
     }
 
     public void mouseMoved(int x, int y) {
@@ -153,4 +147,5 @@ public class BottomBar {
             button.resetBooleans();
         }
     }
+
 }

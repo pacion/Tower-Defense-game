@@ -16,6 +16,8 @@ public class Render {
             game.getPlaying().render(graphics);
         } else if (GameStates.gameState == GameStates.SETTINGS) {
             game.getSettings().render(graphics);
+        } else if(GameStates.gameState == GameStates.EDIT) {
+            game.getEditor().render(graphics);
         }
     }
 }

@@ -23,6 +23,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 game.getPlaying().mouseClicked(e.getX(), e.getY());
             } else if(GameStates.gameState == GameStates.SETTINGS) {
                 game.getSettings().mouseClicked(e.getX(), e.getY());
+            } else if(GameStates.gameState == GameStates.EDIT) {
+                game.getEditor().mouseClicked(e.getX(), e.getY());
             }
         }
     }
@@ -35,6 +37,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getPlaying().mousePressed(e.getX(), e.getY());
         } else if(GameStates.gameState == GameStates.SETTINGS) {
             game.getSettings().mousePressed(e.getX(), e.getY());
+        } else if(GameStates.gameState == GameStates.EDIT) {
+            game.getEditor().mousePressed(e.getX(), e.getY());
         }
     }
 
@@ -47,6 +51,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 game.getPlaying().mouseReleased(e.getX(), e.getY());
             } else if(GameStates.gameState == GameStates.SETTINGS) {
                 game.getSettings().mouseReleased(e.getX(), e.getY());
+            } else if(GameStates.gameState == GameStates.EDIT) {
+                game.getEditor().mouseReleased(e.getX(), e.getY());
             }
         }
     }
@@ -69,6 +75,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getPlaying().mouseDragged(e.getX(), e.getY());
         } else if(GameStates.gameState == GameStates.SETTINGS) {
             game.getSettings().mouseDragged(e.getX(), e.getY());
+        } else if(GameStates.gameState == GameStates.EDIT) {
+            game.getEditor().mouseDragged(e.getX(), e.getY());
         }
     }
 
@@ -80,6 +88,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getPlaying().mouseMoved(e.getX(), e.getY());
         } else if(GameStates.gameState == GameStates.SETTINGS) {
             game.getSettings().mouseMoved(e.getX(), e.getY());
+        } else if(GameStates.gameState == GameStates.EDIT) {
+            game.getEditor().mouseMoved(e.getX(), e.getY());
         }
     }
 }
