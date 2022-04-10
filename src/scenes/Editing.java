@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import helperMethods.LoadSave;
@@ -110,12 +111,14 @@ public class Editing extends GameScene implements SceneMethods {
 
     @Override
     public void mousePressed(int x, int y) {
-
+        if(y >= 640) {
+            toolbar.mousePressed(x, y);
+        }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-
+        toolbar.mouseReleased(x, y);
     }
 
     @Override
@@ -126,6 +129,12 @@ public class Editing extends GameScene implements SceneMethods {
             changeTile(x, y);
         }
 
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_R) {
+            toolbar.rotateSprite();
+        }
     }
 
 }
