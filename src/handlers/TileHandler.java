@@ -53,7 +53,6 @@ public class TileHandler {
         waterCorners.add(TR_WATER_CORNER = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(5, 0), 180), id++, "TR_Corner"));
         waterCorners.add(BR_WATER_CORNER = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(5, 0), 270), id++, "BR_Corner"));
 
-<<<<<<< HEAD
         waterBeaches.add(T_WATER = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(6, 0), 0), id++, "T_Water"));
         waterBeaches.add(R_WATER = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(6, 0), 90), id++, "R_Water"));
         waterBeaches.add(B_WATER = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(6, 0), 180), id++, "B_Water"));
@@ -63,17 +62,6 @@ public class TileHandler {
         waterIslands.add(TR_ISLE = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(4, 0), 90), id++, "TR_Isle"));
         waterIslands.add(BR_ISLE = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(4, 0), 180), id++, "BR_Isle"));
         waterIslands.add(BL_ISLE = new Tile(ImageFix.getBuildRotatedImage(getAnimationSprites(0, 0), getSprite(4, 0), 270), id++, "BL_Isle"));
-=======
-        waterBeaches.add(T_WATER = new Tile(ImageFix.buildImage(getImages(0, 0, 6, 0)), id++, "T_Water"));
-		waterBeaches.add(R_WATER = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 6, 0), 90, 1), id++, "R_Water"));
-		waterBeaches.add(B_WATER = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 6, 0), 180, 1), id++, "B_Water"));
-		waterBeaches.add(L_WATER = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 6, 0), 270, 1), id++, "L_Water"));
-
-		waterIslands.add(TL_ISLE = new Tile(ImageFix.buildImage(getImages(0, 0, 4, 0)), id++, "TL_Isle"));
-        waterIslands.add(TR_ISLE = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 4, 0), 90, 1), id++, "TR_Isle"));
-        waterIslands.add(BR_ISLE = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 4, 0), 180, 1), id++, "BR_Isle"));
-        waterIslands.add(BL_ISLE = new Tile(ImageFix.getBuildRotatedImage(getImages(0, 0, 4, 0), 270, 1), id++, "BL_Isle"));
->>>>>>> parent of dad306a (Rotation of squares.)
 
         tiles.addAll(roadsStraight);
         tiles.addAll(roadsCorners);

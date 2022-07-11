@@ -27,7 +27,7 @@ public class Toolbar extends Bar {
         super(x, y, width, height);
         this.editing = editing;
 
-        
+
         initButtons();
     }
 
@@ -35,11 +35,11 @@ public class Toolbar extends Bar {
         buttonMenu = new MyButton("Menu", 2, 642, 100, 30);
         buttonSave = new MyButton("Save", 2, 674, 100, 30);
 
-        int w = 50;
-        int h = 50;
+        int width = 50;
+        int height = 50;
         int xStart = 110;
         int yStart = 650;
-        int xOffset = (int)(w * 1.1f);
+        int xOffset = (int)(width * 1.1f);
 
         int index = 0;
 
