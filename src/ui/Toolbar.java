@@ -27,6 +27,7 @@ public class Toolbar extends Bar {
         super(x, y, width, height);
         this.editing = editing;
 
+        
         initButtons();
     }
 
@@ -135,6 +136,7 @@ public class Toolbar extends Bar {
                 if(button.getBounds().contains(x, y)) {
                     selectedTile = map.get(button).get(0);
                     editing.setSelectedTile(selectedTile);
+                    System.out.println(button);
                     currentButton = button;
                     currentIndex = 0;
                     return;

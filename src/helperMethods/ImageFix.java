@@ -60,4 +60,27 @@ public class ImageFix {
 
         return newImage;
     }
+
+    public static BufferedImage[] getBuildRotatedImage(BufferedImage[] images, BufferedImage secondImage, int angle) {
+        int width = images[0].getWidth();
+        int height = images[0].getHeight();
+
+        BufferedImage[] arr = new  BufferedImage[images.length];
+        // TODO: VLA: List<Integer> ints = new ArrayList<Integer>();
+
+        for(int i = 0; i < images.length; i++) {
+            BufferedImage newImage = new BufferedImage(width, height, images[0].getType());
+            Graphics2D graphics2D = newImage.createGraphics();
+
+            graphics2D.drawImage(images[i], 0, 0, null);
+            graphics2D.rotate(Math.toRadians(angle), width / 2.f, height / 2.f);
+            graphics2D.drawImage(secondImage, 0, 0, null);
+            graphics2D.dispose();
+
+            arr[i] = newImage;
+
+        }
+
+        return arr;
+    }
 }

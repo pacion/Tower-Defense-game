@@ -17,6 +17,10 @@ public class Editing extends GameScene implements SceneMethods {
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelect;
     private Toolbar toolbar;
+    private int ANIMATION_SPEED = 25;
+
+    private int animationIndex;
+    private int tickRate;
 
     public Editing(Game game) {
         super(game);
@@ -32,22 +36,50 @@ public class Editing extends GameScene implements SceneMethods {
 
     @Override
     public void render(Graphics g) {
+        updateTick();
+
         drawLevel(g);
         toolbar.draw(g);
         drawSelectedTile(g);
+    }
+
+    private void updateTick() {
+        tickRate++;
+
+        if(tickRate >= ANIMATION_SPEED) {
+            tickRate = 0;
+            animationIndex++;
+
+            if(animationIndex >= 4) {
+                animationIndex = 0;
+            }
+        }
     }
 
     private void drawLevel(Graphics graphics) {
         for (int y = 0; y < lvl.length; y++) {
             for (int x = 0; x < lvl[y].length; x++) {
                 int id = lvl[y][x];
-                graphics.drawImage(getSprite(id), x * 32, y * 32, null);
+
+                if(isAnimation(id)) {
+                    graphics.drawImage(getSprite(id, animationIndex), x * 32, y * 32, null);
+                } else {
+                    graphics.drawImage(getSprite(id), x * 32, y * 32, null);
+                }
             }
         }
     }
 
-    private BufferedImage getSprite(int spriteID) {
-        return getGame().getTileManager().getSprite(spriteID);
+    private boolean isAnimation(int spriteId) {
+        return getGame().getTileManager().isSpriteAnimation(spriteId);
+    }
+
+    private BufferedImage getSprite(int spriteId, int animationIndex) {
+        return getGame().getTileManager().getAnimationSprite(spriteId, animationIndex);
+    }
+
+    private BufferedImage getSprite(int spriteId) {
+        return getGame().getTileManager().getSprite(spriteId);
     }
 
     private void drawSelectedTile(Graphics g) {
