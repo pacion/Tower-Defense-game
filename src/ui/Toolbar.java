@@ -129,14 +129,17 @@ public class Toolbar extends Bar {
             saveLevel();
         } else if (buttonWater.getBounds().contains(x, y)) {
             selectedTile = editing.getGame().getTileManager().getTile(buttonWater.getId());
+            editing.setSelectedTile(selectedTile);
+            return;
         } else if (buttonGrass.getBounds().contains(x, y)) {
             selectedTile = editing.getGame().getTileManager().getTile(buttonGrass.getId());
+            editing.setSelectedTile(selectedTile);
+            return;
         } else {
             for(MyButton button : map.keySet()) {
                 if(button.getBounds().contains(x, y)) {
                     selectedTile = map.get(button).get(0);
                     editing.setSelectedTile(selectedTile);
-                    System.out.println(button);
                     currentButton = button;
                     currentIndex = 0;
                     return;
