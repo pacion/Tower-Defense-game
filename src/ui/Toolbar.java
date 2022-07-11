@@ -123,6 +123,8 @@ public class Toolbar extends Bar {
     }
 
     public void mouseClicked(int x, int y) {
+        currentButton = null;
+
         if (buttonMenu.getBounds().contains(x, y)) {
             SetGameState(MENU);
         } else if(buttonSave.getBounds().contains(x, y)) {
@@ -207,6 +209,9 @@ public class Toolbar extends Bar {
     }
 
     public void rotateSprite() {
+        if(selectedTile == null || currentButton == null)
+            return;
+
         currentIndex++;
 
         if(currentIndex >= map.get(currentButton).size())
