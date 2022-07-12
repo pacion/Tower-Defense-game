@@ -3,6 +3,7 @@ package scenes;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import handlers.EnemyHandler;
 import helperMethods.LoadSave;
 import main.Game;
 import ui.ActionBar;
@@ -12,6 +13,7 @@ public class Playing extends GameScene implements SceneMethods {
     private int[][] lvl;
     private ActionBar bottomBar;
     private int mouseX, mouseY;
+    private EnemyHandler enemyHandler;
 
     public Playing(Game game) {
         super(game);
@@ -20,6 +22,7 @@ public class Playing extends GameScene implements SceneMethods {
 
         bottomBar = new ActionBar(0, 640, 640, 100, this);
 
+        enemyHandler = new EnemyHandler(this);
     }
 
     private void loadDefaultLevel() {
@@ -32,11 +35,11 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics graphics) {
+        drawLevel(graphics);
+        bottomBar.draw(graphics);
 
-        drawLevel(g);
-        bottomBar.draw(g);
-
+        enemyHandler.draw(graphics);
     }
 
     private void drawLevel(Graphics graphics) {
@@ -48,14 +51,21 @@ public class Playing extends GameScene implements SceneMethods {
         }
     }
 
+    public void update() {
+        enemyHandler.update();
+    }
+
     private BufferedImage getSprite(int spriteID) {
         return getGame().getTileManager().getSprite(spriteID);
     }
 
     @Override
     public void mouseClicked(int x, int y) {
-        if (y >= 640)
+        if (y >= 640) {
             bottomBar.mouseClicked(x, y);
+        } else {
+            enemyHandler.addEnemy(x, y);
+        }
     }
 
     @Override
