@@ -5,7 +5,7 @@ import main.Game;
 import java.awt.image.BufferedImage;
 
 public class GameScene {
-    private Game game;
+    protected Game game;
     protected int animationIndex;
     protected int tickRate;
     private int ANIMATION_SPEED = 25;
