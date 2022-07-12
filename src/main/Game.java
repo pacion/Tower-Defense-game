@@ -13,6 +13,8 @@ import scenes.Menu;
 import scenes.Playing;
 import scenes.Settings;
 
+import java.awt.*;
+
 public class Game extends JFrame implements Runnable {
 
     private GameScreen gameScreen;
@@ -31,17 +33,15 @@ public class Game extends JFrame implements Runnable {
     private TileHandler tileHandler;
 
     public Game() {
-
         initClasses();
         createDefaultLevel();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // TODO: change into middle of the screen good size, resolution
         setResizable(false);
         add(gameScreen);
         pack();
         setVisible(true);
-
     }
 
     private void createDefaultLevel() {

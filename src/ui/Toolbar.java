@@ -34,11 +34,11 @@ public class Toolbar extends Bar {
         buttonMenu = new MyButton("Menu", 2, 642, 100, 30);
         buttonSave = new MyButton("Save", 2, 674, 100, 30);
 
-        int w = 50;
-        int h = 50;
+        int width = 50;
+        int height = 50;
         int xStart = 110;
         int yStart = 650;
-        int xOffset = (int)(w * 1.1f);
+        int xOffset = (int)(width * 1.1f);
 
         int index = 0;
 
@@ -122,14 +122,20 @@ public class Toolbar extends Bar {
     }
 
     public void mouseClicked(int x, int y) {
+        currentButton = null;
+
         if (buttonMenu.getBounds().contains(x, y)) {
             SetGameState(MENU);
         } else if(buttonSave.getBounds().contains(x, y)) {
             saveLevel();
         } else if (buttonWater.getBounds().contains(x, y)) {
             selectedTile = editing.getGame().getTileManager().getTile(buttonWater.getId());
+            editing.setSelectedTile(selectedTile);
+            return;
         } else if (buttonGrass.getBounds().contains(x, y)) {
             selectedTile = editing.getGame().getTileManager().getTile(buttonGrass.getId());
+            editing.setSelectedTile(selectedTile);
+            return;
         } else {
             for(MyButton button : map.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -202,6 +208,9 @@ public class Toolbar extends Bar {
     }
 
     public void rotateSprite() {
+        if(selectedTile == null || currentButton == null)
+            return;
+
         currentIndex++;
 
         if(currentIndex >= map.get(currentButton).size())
