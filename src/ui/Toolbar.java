@@ -27,7 +27,6 @@ public class Toolbar extends Bar {
         super(x, y, width, height);
         this.editing = editing;
 
-
         initButtons();
     }
 

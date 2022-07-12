@@ -65,8 +65,7 @@ public class ImageFix {
         int width = images[0].getWidth();
         int height = images[0].getHeight();
 
-        BufferedImage[] arr = new  BufferedImage[images.length];
-        // TODO: VLA: List<Integer> ints = new ArrayList<Integer>();
+        BufferedImage[] arr = new  BufferedImage[images.length]; // VLA because Tile constructor takes an array
 
         for(int i = 0; i < images.length; i++) {
             BufferedImage newImage = new BufferedImage(width, height, images[0].getType());
@@ -78,7 +77,6 @@ public class ImageFix {
             graphics2D.dispose();
 
             arr[i] = newImage;
-
         }
 
         return arr;

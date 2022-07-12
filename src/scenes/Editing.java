@@ -16,6 +16,7 @@ public class Editing extends GameScene implements SceneMethods {
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelect;
+
     private Toolbar toolbar;
     private int ANIMATION_SPEED = 25;
 
