@@ -73,7 +73,7 @@ public class Game extends JFrame implements Runnable {
 
     private void updateGame() {
         if(GameStates.gameState == GameStates.EDIT) {
-
+            editing.update();
         } else if(GameStates.gameState == GameStates.MENU) {
 
         } else if(GameStates.gameState == GameStates.PLAYING) {

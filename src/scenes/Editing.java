@@ -18,10 +18,6 @@ public class Editing extends GameScene implements SceneMethods {
     private boolean drawSelect;
 
     private Toolbar toolbar;
-    private int ANIMATION_SPEED = 25;
-
-    private int animationIndex;
-    private int tickRate;
 
     public Editing(Game game) {
         super(game);
@@ -44,19 +40,6 @@ public class Editing extends GameScene implements SceneMethods {
         drawSelectedTile(g);
     }
 
-    private void updateTick() {
-        tickRate++;
-
-        if(tickRate >= ANIMATION_SPEED) {
-            tickRate = 0;
-            animationIndex++;
-
-            if(animationIndex >= 4) {
-                animationIndex = 0;
-            }
-        }
-    }
-
     private void drawLevel(Graphics graphics) {
         for (int y = 0; y < lvl.length; y++) {
             for (int x = 0; x < lvl[y].length; x++) {
@@ -71,23 +54,14 @@ public class Editing extends GameScene implements SceneMethods {
         }
     }
 
-    private boolean isAnimation(int spriteId) {
-        return getGame().getTileManager().isSpriteAnimation(spriteId);
-    }
-
-    private BufferedImage getSprite(int spriteId, int animationIndex) {
-        return getGame().getTileManager().getAnimationSprite(spriteId, animationIndex);
-    }
-
-    private BufferedImage getSprite(int spriteId) {
-        return getGame().getTileManager().getSprite(spriteId);
-    }
-
     private void drawSelectedTile(Graphics g) {
         if (selectedTile != null && drawSelect) {
             g.drawImage(selectedTile.getSprite(), mouseX, mouseY, 32, 32, null);
         }
+    }
 
+    public void update() {
+        updateTick();
     }
 
     public void saveLevel() {
