@@ -27,21 +27,19 @@ public class EnemyHandler {
 
     private void loadEnemyImages() {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
-        enemyImages[0] = atlas.getSubimage(0 * 32, 32, 32, 32);
-        enemyImages[1] = atlas.getSubimage(1 * 32, 32, 32, 32);
-        enemyImages[2] = atlas.getSubimage(2 * 32, 32, 32, 32);
-        enemyImages[3] = atlas.getSubimage(3 * 32, 32, 32, 32);
+
+        for(int i = 0; i < 4; i++) {
+            enemyImages[i] = atlas.getSubimage(i * 32, 32, 32, 32);
+        }
     }
 
     public void update() {
         for(Enemy enemy : enemies) {
-            if(isNextTileRoad(enemy)) {
-
-            }
+            updateEnemyMove(enemy);
         }
     }
 
-    public boolean isNextTileRoad(Enemy enemy) {
+    public void updateEnemyMove(Enemy enemy) {
         int newX = (int)(enemy.getX() + getSpeedAndWidth(enemy.getLastDirection()));
         int newY = (int)(enemy.getY() + getSpeedAndHeight(enemy.getLastDirection()));
 
@@ -52,9 +50,6 @@ public class EnemyHandler {
         } else {
             setNewDirectionAndMove(enemy);
         }
-
-
-        return false;
     }
 
     private void setNewDirectionAndMove(Enemy enemy) {
