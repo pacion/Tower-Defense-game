@@ -1,8 +1,9 @@
 package handlers;
 
-import enemies.Enemy;
+import enemies.*;
 import helperMethods.LoadSave;
 import scenes.Playing;
+import static helperMethods.Constants.Enemies.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,10 @@ public class EnemyHandler {
     public EnemyHandler(Playing playing) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
-        addEnemy(3 * 32, 9 * 32);
+        addEnemy(0 * 32, 19 * 32, ORC);
+        addEnemy(2 * 32, 10 * 32, BAT);
+        addEnemy(8 * 32, 14 * 32, KNIGHT);
+        addEnemy(8 * 32, 8 * 32, WOLF);
 
         loadEnemyImages();
     }
@@ -40,6 +44,10 @@ public class EnemyHandler {
     }
 
     public void updateEnemyMove(Enemy enemy) {
+        if(enemy.getLastDirection() == -1) {
+            setNewDirectionAndMove(enemy);
+        }
+
         int newX = (int)(enemy.getX() + getSpeedAndWidth(enemy.getLastDirection()));
         int newY = (int)(enemy.getY() + getSpeedAndHeight(enemy.getLastDirection()));
 
@@ -129,8 +137,16 @@ public class EnemyHandler {
         return 0;
     }
 
-    public void addEnemy(int x, int y) {
-        enemies.add(new Enemy(x,  y, 0, 0));
+    public void addEnemy(int x, int y, int enemyType) {
+        if(enemyType == ORC) {
+            enemies.add(new Orc(x,  y, 0));
+        } else if(enemyType == KNIGHT) {
+            enemies.add(new Knight(x,  y, 0));
+        } else if(enemyType == BAT) {
+            enemies.add(new Bat(x,  y, 0));
+        } else if(enemyType == WOLF) {
+            enemies.add(new Wolf(x,  y, 0));
+        }
     }
 
     public void draw(Graphics graphics) {
@@ -140,7 +156,7 @@ public class EnemyHandler {
     }
 
     private void drawEnemy (Enemy enemy, Graphics graphics) {
-        graphics.drawImage(enemyImages[0], (int)enemy.getX(), (int)enemy.getY(), null);
+        graphics.drawImage(enemyImages[enemy.getEnemyType()], (int)enemy.getX(), (int)enemy.getY(), null);
 
     }
 

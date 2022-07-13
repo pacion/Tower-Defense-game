@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.renderable.RenderableImage;
 import static helperMethods.Constants.Direction.*;
 
-public class Enemy {
+public abstract class Enemy {
     private float x, y;
     private Rectangle bounds;
     private int health;
@@ -18,7 +18,7 @@ public class Enemy {
         this.id = id;
         this.enemyType = enemyType;
         bounds = new Rectangle((int)x, (int)y, 32, 32);
-        lastDirection = RIGHT;
+        lastDirection = -1;
     }
 
     public void move(float speed, float direction) {
