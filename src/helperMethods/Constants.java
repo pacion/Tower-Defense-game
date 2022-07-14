@@ -74,6 +74,8 @@ public class Constants {
             } else if(towerType == WIZARD) {
                 return 12;
             }
+
+            return 0;
         }
 
         public static float GetDefaultRange(int towerType) {
@@ -84,6 +86,8 @@ public class Constants {
             } else if(towerType == WIZARD) {
                 return 100;
             }
+
+            return 0;
         }
 
         public static float GetDefaultCooldown(int towerType) {
@@ -94,6 +98,8 @@ public class Constants {
             } else if(towerType == WIZARD) {
                 return 15f;
             }
+
+            return 0;
         }
     }
 }
