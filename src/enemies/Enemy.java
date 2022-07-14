@@ -13,6 +13,7 @@ public abstract class Enemy {
     protected int id;
     protected int enemyType;
     protected int lastDirection;
+    protected boolean alive = true;
 
     public Enemy(float x, float y, int id, int enemyType) {
         this.x = x;
@@ -27,6 +28,14 @@ public abstract class Enemy {
     private void setStartHealth() {
         health = GetStartHealth(enemyType);
         maxHealth = health;
+    }
+
+    public void hurt(int damage) {
+        this.health -= damage;
+
+        if(health <= 0) {
+            alive = false;
+        }
     }
 
     public void move(float speed, float direction) {
@@ -104,4 +113,7 @@ public abstract class Enemy {
         return lastDirection;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
 }

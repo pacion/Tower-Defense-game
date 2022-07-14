@@ -2,6 +2,7 @@ package scenes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import handlers.EnemyHandler;
@@ -169,5 +170,9 @@ public class Playing extends GameScene implements SceneMethods {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
         }
+    }
+
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
     }
 }

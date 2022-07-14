@@ -1,5 +1,6 @@
 package handlers;
 
+import enemies.Enemy;
 import helperMethods.LoadSave;
 import objects.Tower;
 import scenes.Playing;
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static helperMethods.Constants.Towers.*;
+import static helperMethods.Utils.GetHypotDistance;
 
 public class TowerHandler {
     private Playing playing;
@@ -59,7 +61,25 @@ public class TowerHandler {
     }
 
     public void update() {
+        attackEnemyIfInRange();
+    }
 
+    private void attackEnemyIfInRange() {
+        for(Tower tower : towers) {
+            for(Enemy enemy : playing.getEnemyHandler().getEnemies()) {
+                if(enemy.isAlive()) {
+                    if (isEnemyInRange(tower, enemy)) {
+                        enemy.hurt(1);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isEnemyInRange(Tower tower, Enemy enemy) {
+        int range = GetHypotDistance(tower.getX(), tower.getY(), enemy.getX(), enemy.getY());
+
+        return range < tower.getRange();
     }
 
     public BufferedImage[] getTowerImages() {

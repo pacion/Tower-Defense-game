@@ -1,6 +1,23 @@
 package helperMethods;
 
 public class Constants {
+    public static class Projectiles {
+        public static final int ARROW = 0;
+        public static final int BOMB = 1;
+        public static final int ICE = 2;
+
+        public static float GetSpeed(float type) {
+            if(type == ARROW) {
+                return 3f;
+            } else if(type == BOMB) {
+                return 1f;
+            } else if(type == ICE) {
+                return 2f;
+            }
+            return 0;
+        }
+    }
+
     public static class Direction {
         public static final int LEFT = 0;
         public static final int UP = 1;

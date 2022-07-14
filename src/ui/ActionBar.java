@@ -70,7 +70,17 @@ public class ActionBar extends Bar {
             graphics.drawString("ID: " + displayedTower.getId(), 490, 675);
 
             drawDisplayedTowerBorder(graphics);
+            drawDisplayedTowerRange(graphics);
         }
+    }
+
+    private void drawDisplayedTowerRange(Graphics graphics) {
+        graphics.setColor(Color.white);
+        graphics.drawOval(displayedTower.getX() + 16 - (int)(displayedTower.getRange() * 2) / 2,
+                displayedTower.getY() + 16 - (int)(displayedTower.getRange() * 2) / 2,
+                (int)displayedTower.getRange() * 2,
+                (int) displayedTower.getRange() * 2);
+
     }
 
     private void drawDisplayedTowerBorder(Graphics graphics) {

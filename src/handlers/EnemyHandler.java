@@ -44,7 +44,9 @@ public class EnemyHandler {
 
     public void update() {
         for(Enemy enemy : enemies) {
-            updateEnemyMove(enemy);
+            if(enemy.isAlive()) {
+                updateEnemyMove(enemy);
+            }
         }
     }
 
@@ -163,8 +165,10 @@ public class EnemyHandler {
 
     public void draw(Graphics graphics) {
         for(Enemy enemy : enemies) {
-            drawEnemy(enemy, graphics);
-            drawHealthBar(enemy, graphics);
+            if(enemy.isAlive()) {
+                drawEnemy(enemy, graphics);
+                drawHealthBar(enemy, graphics);
+            }
         }
     }
 
@@ -180,6 +184,10 @@ public class EnemyHandler {
     private void drawEnemy (Enemy enemy, Graphics graphics) {
         graphics.drawImage(enemyImages[enemy.getEnemyType()], (int)enemy.getX(), (int)enemy.getY(), null);
 
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 
 }
