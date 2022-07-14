@@ -48,6 +48,16 @@ public class TowerHandler {
         towers.add(new Tower(x, y, towerAmount++, selectedTower.getTowerType()));
     }
 
+    public Tower getTowerAt(int x, int y) {
+        for(Tower tower: towers) {
+            if(tower.getX() == x && tower.getY() == y) {
+                return tower;
+            }
+        }
+
+        return null;
+    }
+
     public void update() {
 
     }
