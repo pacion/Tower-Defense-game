@@ -87,8 +87,8 @@ public class EnemyHandler {
             } else {
                 enemy.move(GetSpeed(enemy.getEnemyType()), DOWN);
             }
-        } else if(direction == UP || direction == DOWN) {
-            int newX = (int)(enemy.getY() + getSpeedAndHeight(RIGHT, enemy.getEnemyType()));
+        } else if(direction == UP || direction == DOWN || direction == -1) {
+            int newX = (int)(enemy.getX() + getSpeedAndWidth(RIGHT, enemy.getEnemyType()));
 
             if(getTileType(newX, (int)enemy.getY()) == ROAD_TILE) {
                 enemy.move(GetSpeed(enemy.getEnemyType()), RIGHT);
