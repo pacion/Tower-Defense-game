@@ -3,14 +3,17 @@ package enemies;
 import java.awt.*;
 import java.awt.image.renderable.RenderableImage;
 import static helperMethods.Constants.Direction.*;
+import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
-    private float x, y;
-    private Rectangle bounds;
-    private int health;
-    private int id;
-    private int enemyType;
-    private int lastDirection;
+    protected float x, y;
+    protected Rectangle bounds;
+    protected int health;
+    protected int maxHealth;
+    protected int id;
+    protected int enemyType;
+    protected int lastDirection;
+    protected boolean alive = true;
 
     public Enemy(float x, float y, int id, int enemyType) {
         this.x = x;
@@ -19,6 +22,20 @@ public abstract class Enemy {
         this.enemyType = enemyType;
         bounds = new Rectangle((int)x, (int)y, 32, 32);
         lastDirection = -1;
+        setStartHealth();
+    }
+
+    private void setStartHealth() {
+        health = GetStartHealth(enemyType);
+        maxHealth = health;
+    }
+
+    public void hurt(int damage) {
+        this.health -= damage;
+
+        if(health <= 0) {
+            alive = false;
+        }
     }
 
     public void move(float speed, float direction) {
@@ -33,6 +50,10 @@ public abstract class Enemy {
         } else if(direction == DOWN) {
             this.y += speed;
         }
+    }
+
+    public float getHealthBarFloat() {
+        return health / (float) maxHealth;
     }
 
     public float getX() {
@@ -92,4 +113,7 @@ public abstract class Enemy {
         return lastDirection;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
 }

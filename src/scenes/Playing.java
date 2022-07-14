@@ -1,19 +1,27 @@
 package scenes;
 
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import handlers.EnemyHandler;
+import handlers.TowerHandler;
 import helperMethods.LoadSave;
 import main.Game;
 import objects.PathPoint;
+import objects.Tower;
 import ui.ActionBar;
+
+import static helperMethods.Constants.Tiles.GRASS_TILE;
 
 public class Playing extends GameScene implements SceneMethods {
     private int[][] lvl;
     private ActionBar actionBar;
     private int mouseX, mouseY;
     private EnemyHandler enemyHandler;
+    private TowerHandler towerHandler;
+    private Tower selectedTower;
     private PathPoint start, end;
 
     public Playing(Game game) {
@@ -24,6 +32,11 @@ public class Playing extends GameScene implements SceneMethods {
         actionBar = new ActionBar(0, 640, 640, 160, this);
 
         enemyHandler = new EnemyHandler(this, start, end);
+        towerHandler = new TowerHandler(this);
+    }
+
+    public void setSelectedTower(Tower selectedTower) {
+        this.selectedTower = selectedTower;
     }
 
     private void loadDefaultLevel() {
@@ -43,6 +56,20 @@ public class Playing extends GameScene implements SceneMethods {
         actionBar.draw(graphics);
 
         enemyHandler.draw(graphics);
+        towerHandler.draw(graphics);
+        drawSelectedTower(graphics);
+        drawHighLight(graphics);
+    }
+
+    private void drawHighLight(Graphics graphics) {
+        graphics.setColor(new Color(255, 255, 255));
+        graphics.drawRect(mouseX, mouseY, 32, 32);
+    }
+
+    private void drawSelectedTower(Graphics graphics) {
+        if(selectedTower != null) {
+            graphics.drawImage(towerHandler.getTowerImages()[selectedTower.getTowerType()], mouseX, mouseY, null);
+        }
     }
 
     private void drawLevel(Graphics graphics) {
@@ -62,6 +89,7 @@ public class Playing extends GameScene implements SceneMethods {
     public void update() {
         updateTick();
         enemyHandler.update();
+        towerHandler.update();
     }
 
     @Override
@@ -69,8 +97,29 @@ public class Playing extends GameScene implements SceneMethods {
         if (y >= 640) {
             actionBar.mouseClicked(x, y);
         } else {
-            enemyHandler.addEnemy(0);
+            if(selectedTower != null) {
+                if(isTileGrass(mouseX, mouseY)) {
+                    if(getTowerAt(mouseX, mouseY) == null) {
+                        towerHandler.addTower(selectedTower, mouseX, mouseY);
+                        selectedTower = null;
+                    }
+                }
+            } else {
+                Tower tower = getTowerAt(mouseX, mouseY);
+                actionBar.displayTower(tower);
+            }
         }
+    }
+
+    private Tower getTowerAt(int x, int y) {
+        return towerHandler.getTowerAt(x, y);
+    }
+
+    private boolean isTileGrass(int x, int y) {
+        int id = lvl[y / 32][x / 32];
+        int tileType = game.getTileManager().getTile(id).getTileType();
+
+        return tileType == GRASS_TILE;
     }
 
     @Override
@@ -101,14 +150,29 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public int getTileType(int x, int y) {
-        int newX = x / 32;
-        int newY = y / 32;
+        int xCord = x / 32;
+        int yCord = y / 32;
 
-        if(newX < 0 || newX > 19 || newY < 0 || newY > 19)
+        if (xCord < 0 || xCord > 19)
+            return 0;
+        if (yCord < 0 || yCord > 19)
             return 0;
 
-        int id = lvl[newX][newY];
-
+        int id = lvl[y / 32][x / 32];
         return game.getTileManager().getTile(id).getTileType();
+    }
+
+    public TowerHandler getTowerHandler() {
+        return towerHandler;
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            selectedTower = null;
+        }
+    }
+
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
     }
 }
