@@ -24,11 +24,25 @@ public class Constants {
             if(enemyType == ORC) {
                 return 0.5f;
             } else if(enemyType == BAT) {
-                return 0.65f;
+                return 0.75f;
             } else if(enemyType == KNIGHT) {
                 return 0.2f;
             } else if(enemyType == WOLF) {
-                return 0.8f;
+                return 1.2f;
+            }
+
+            return 0;
+        }
+
+        public static int GetStartHealth(int enemyType) {
+            if(enemyType == ORC) {
+                return 100;
+            } else if(enemyType == BAT) {
+                return 75;
+            } else if(enemyType == KNIGHT) {
+                return 300;
+            } else if(enemyType == WOLF) {
+                return 20;
             }
 
             return 0;
@@ -50,6 +64,36 @@ public class Constants {
             }
 
             return "";
+        }
+
+        public static float GetStartDamage(int towerType) {
+            if(towerType == CANNON) {
+                return 10;
+            } else if(towerType == ARCHER) {
+                return 7;
+            } else if(towerType == WIZARD) {
+                return 12;
+            }
+        }
+
+        public static float GetDefaultRange(int towerType) {
+            if(towerType == CANNON) {
+                return 60;
+            } else if(towerType == ARCHER) {
+                return 180;
+            } else if(towerType == WIZARD) {
+                return 100;
+            }
+        }
+
+        public static float GetDefaultCooldown(int towerType) {
+            if(towerType == CANNON) {
+                return 10f;
+            } else if(towerType == ARCHER) {
+                return 6f;
+            } else if(towerType == WIZARD) {
+                return 15f;
+            }
         }
     }
 }

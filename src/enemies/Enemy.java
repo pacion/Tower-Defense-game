@@ -3,6 +3,7 @@ package enemies;
 import java.awt.*;
 import java.awt.image.renderable.RenderableImage;
 import static helperMethods.Constants.Direction.*;
+import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
     private float x, y;
@@ -19,6 +20,10 @@ public abstract class Enemy {
         this.enemyType = enemyType;
         bounds = new Rectangle((int)x, (int)y, 32, 32);
         lastDirection = -1;
+    }
+
+    protected void setStartHealth() {
+        health = GetStartHealth(enemyType);
     }
 
     public void move(float speed, float direction) {
