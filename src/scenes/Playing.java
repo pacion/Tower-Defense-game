@@ -2,18 +2,20 @@ package scenes;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import handlers.EnemyHandler;
 import helperMethods.LoadSave;
 import main.Game;
+import objects.PathPoint;
 import ui.ActionBar;
 
 public class Playing extends GameScene implements SceneMethods {
-
     private int[][] lvl;
     private ActionBar bottomBar;
     private int mouseX, mouseY;
     private EnemyHandler enemyHandler;
+    private PathPoint start, end;
 
     public Playing(Game game) {
         super(game);
@@ -22,11 +24,14 @@ public class Playing extends GameScene implements SceneMethods {
 
         bottomBar = new ActionBar(0, 640, 640, 100, this);
 
-        enemyHandler = new EnemyHandler(this);
+        enemyHandler = new EnemyHandler(this, start, end);
     }
 
     private void loadDefaultLevel() {
         lvl = LoadSave.GetLevelData("new_level");
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
+        start = points.get(0);
+        end = points.get(1);
     }
 
     public void setLevel(int[][] lvl) {
@@ -65,7 +70,7 @@ public class Playing extends GameScene implements SceneMethods {
         if (y >= 640) {
             bottomBar.mouseClicked(x, y);
         } else {
-            enemyHandler.addEnemy(x, y, 0);
+            enemyHandler.addEnemy(0);
         }
     }
 

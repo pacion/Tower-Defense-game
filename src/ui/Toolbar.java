@@ -253,4 +253,12 @@ public class Toolbar extends Bar {
         editing.setSelectedTile(selectedTile);
     }
 
+    public BufferedImage getStartPathImage() {
+        return pathStart;
+    }
+
+    public BufferedImage getEndPathImage() {
+        return pathEnd;
+    }
+
 }

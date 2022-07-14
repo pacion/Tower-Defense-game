@@ -2,6 +2,7 @@ package handlers;
 
 import enemies.*;
 import helperMethods.LoadSave;
+import objects.PathPoint;
 import scenes.Playing;
 import static helperMethods.Constants.Enemies.*;
 
@@ -17,14 +18,18 @@ public class EnemyHandler {
     private BufferedImage[] enemyImages;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private float speed = 0.5f;
+    private PathPoint start, end;
 
-    public EnemyHandler(Playing playing) {
+    public EnemyHandler(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
-        addEnemy(0 * 32, 19 * 32, ORC);
-        addEnemy(2 * 32, 10 * 32, BAT);
-        addEnemy(8 * 32, 14 * 32, KNIGHT);
-        addEnemy(8 * 32, 8 * 32, WOLF);
+        this.start = start;
+        this.end = end;
+
+        addEnemy(ORC);
+        addEnemy(BAT);
+        addEnemy(KNIGHT);
+        addEnemy(WOLF);
 
         loadEnemyImages();
     }
@@ -54,7 +59,7 @@ public class EnemyHandler {
         if(getTileType(newX, newY) == ROAD_TILE) {
             enemy.move(speed, enemy.getLastDirection());
         } else if(isAtEndOfPath(enemy)) {
-
+            System.out.println("koniec trasy");
         } else {
             setNewDirectionAndMove(enemy);
         }
@@ -67,6 +72,10 @@ public class EnemyHandler {
         int y = (int)(enemy.getY() / 32);
 
         fixEnemyOffsetTile(enemy, direction, x, y);
+
+        if(isAtEndOfPath(enemy)) {
+            return;
+        }
 
         if(direction == LEFT || direction == RIGHT) {
             int newY = (int)(enemy.getY() + getSpeedAndHeight(UP));
@@ -110,6 +119,9 @@ public class EnemyHandler {
     }
 
     private boolean isAtEndOfPath(Enemy enemy) {
+        if(enemy.getX() == end.getX() * 32 && enemy.getY() == end.getY() * 32)
+            return true;
+
         return false;
     }
 
@@ -137,7 +149,10 @@ public class EnemyHandler {
         return 0;
     }
 
-    public void addEnemy(int x, int y, int enemyType) {
+    public void addEnemy(int enemyType) {
+        int x = start.getX();
+        int y = start.getY();
+
         if(enemyType == ORC) {
             enemies.add(new Orc(x,  y, 0));
         } else if(enemyType == KNIGHT) {
