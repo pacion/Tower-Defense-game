@@ -1,6 +1,7 @@
 package scenes;
 
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import handlers.EnemyHandler;
@@ -56,6 +57,12 @@ public class Playing extends GameScene implements SceneMethods {
         enemyHandler.draw(graphics);
         towerHandler.draw(graphics);
         drawSelectedTower(graphics);
+        drawHighLight(graphics);
+    }
+
+    private void drawHighLight(Graphics graphics) {
+        graphics.setColor(new Color(255, 255, 255));
+        graphics.drawRect(mouseX, mouseY, 32, 32);
     }
 
     private void drawSelectedTower(Graphics graphics) {
@@ -156,5 +163,11 @@ public class Playing extends GameScene implements SceneMethods {
 
     public TowerHandler getTowerHandler() {
         return towerHandler;
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            selectedTower = null;
+        }
     }
 }
