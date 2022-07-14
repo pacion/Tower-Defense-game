@@ -96,6 +96,9 @@ public class Playing extends GameScene implements SceneMethods {
                         selectedTower = null;
                     }
                 }
+            } else {
+                Tower tower = getTowerAt(mouseX, mouseY);
+                actionBar.displayTower(tower);
             }
         }
     }

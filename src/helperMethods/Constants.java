@@ -39,5 +39,17 @@ public class Constants {
         public static final int CANNON = 0;
         public static final int ARCHER = 1;
         public static final int WIZARD = 2;
+
+        public static String getName(int towerType) {
+            if(towerType == CANNON) {
+                return "Cannon";
+            } else if(towerType == ARCHER) {
+                return "Archer";
+            } else if(towerType == WIZARD) {
+                return "Wizard";
+            }
+
+            return "";
+        }
     }
 }
