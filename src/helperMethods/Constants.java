@@ -67,9 +67,9 @@ public class Constants {
     }
 
     public static class Towers {
-        public static final int CANNON = 0;
+        public static final int CANNON = 2;
         public static final int ARCHER = 1;
-        public static final int WIZARD = 2;
+        public static final int WIZARD = 0;
 
         public static String getName(int towerType) {
             if(towerType == CANNON) {
@@ -83,7 +83,7 @@ public class Constants {
             return "";
         }
 
-        public static float GetStartDamage(int towerType) {
+        public static int GetStartDamage(int towerType) {
             if(towerType == CANNON) {
                 return 10;
             } else if(towerType == ARCHER) {

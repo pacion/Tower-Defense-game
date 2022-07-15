@@ -61,20 +61,25 @@ public class TowerHandler {
     }
 
     public void update() {
-        attackEnemyIfInRange();
+        for(Tower tower : towers) {
+            tower.update();
+            attackEnemyIfInRange(tower);
+        }
     }
 
-    private void attackEnemyIfInRange() {
-        for(Tower tower : towers) {
-            for(Enemy enemy : playing.getEnemyHandler().getEnemies()) {
-                if(enemy.isAlive()) {
-                    if (isEnemyInRange(tower, enemy)) {
-                        enemy.hurt(1);
+    private void attackEnemyIfInRange(Tower tower) {
+        for(Enemy enemy : playing.getEnemyHandler().getEnemies()) {
+            if(enemy.isAlive()) {
+                if (isEnemyInRange(tower, enemy)) {
+                    if(tower.isCooldownOver()) {
+                        playing.shootEnemy(tower, enemy);
+                        tower.resetCooldown();
                     }
                 }
             }
         }
     }
+
 
     private boolean isEnemyInRange(Tower tower, Enemy enemy) {
         int range = GetHypotDistance(tower.getX(), tower.getY(), enemy.getX(), enemy.getY());
