@@ -20,9 +20,9 @@ public class Projectile {
         this.projectileType = projectileType;
     }
 
-    public void move() {
-        position.x += xSpeed;
-        position.y += ySpeed;
+    public void move(float x, float y) {
+        position.x += x;
+        position.y += y;
     }
 
     public Point2D.Float getPosition() {
