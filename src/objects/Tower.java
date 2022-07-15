@@ -4,7 +4,9 @@ import static helperMethods.Constants.Towers.*;
 
 public class Tower {
     private int x, y, id, towerType;
-    private float damage, range, cooldown;
+    private float  range, cooldown;
+    private int cooldownTick;
+    private int damage;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
@@ -16,11 +18,23 @@ public class Tower {
         setDefaultCooldown();
     }
 
-    public float getDamage() {
+    public void update() {
+        cooldownTick++;
+    }
+
+    public boolean isCooldownOver() {
+        return cooldownTick >= cooldown;
+    }
+
+    public void resetCooldown() {
+        cooldownTick = 0;
+    }
+
+    public int getDamage() {
         return damage;
     }
 
-    public void setDamage(float damage) {
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 
@@ -49,7 +63,7 @@ public class Tower {
     }
 
     private void setDefaultDamage() {
-        damage = GetDefaultCooldown(towerType);
+        damage = GetStartDamage(towerType);
     }
 
     public int getX() {

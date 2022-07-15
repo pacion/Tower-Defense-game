@@ -50,6 +50,13 @@ public abstract class Enemy {
         } else if(direction == DOWN) {
             this.y += speed;
         }
+
+        updateHitBox();
+    }
+
+    private void updateHitBox() {
+        bounds.x = (int)x;
+        bounds.y = (int)y;
     }
 
     public float getHealthBarFloat() {

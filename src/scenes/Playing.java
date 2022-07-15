@@ -5,7 +5,9 @@ import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import enemies.Enemy;
 import handlers.EnemyHandler;
+import handlers.ProjectileHandler;
 import handlers.TowerHandler;
 import helperMethods.LoadSave;
 import main.Game;
@@ -23,6 +25,7 @@ public class Playing extends GameScene implements SceneMethods {
     private TowerHandler towerHandler;
     private Tower selectedTower;
     private PathPoint start, end;
+    private ProjectileHandler projectileHandler;
 
     public Playing(Game game) {
         super(game);
@@ -33,6 +36,7 @@ public class Playing extends GameScene implements SceneMethods {
 
         enemyHandler = new EnemyHandler(this, start, end);
         towerHandler = new TowerHandler(this);
+        projectileHandler = new ProjectileHandler(this);
     }
 
     public void setSelectedTower(Tower selectedTower) {
@@ -50,13 +54,22 @@ public class Playing extends GameScene implements SceneMethods {
         this.lvl = lvl;
     }
 
+    public void update() {
+        updateTick();
+        enemyHandler.update();
+        towerHandler.update();
+        projectileHandler.update();
+    }
+
     @Override
     public void render(Graphics graphics) {
         drawLevel(graphics);
-        actionBar.draw(graphics);
 
+        actionBar.draw(graphics);
         enemyHandler.draw(graphics);
         towerHandler.draw(graphics);
+        projectileHandler.draw(graphics);
+
         drawSelectedTower(graphics);
         drawHighLight(graphics);
     }
@@ -84,12 +97,6 @@ public class Playing extends GameScene implements SceneMethods {
                 }
             }
         }
-    }
-
-    public void update() {
-        updateTick();
-        enemyHandler.update();
-        towerHandler.update();
     }
 
     @Override
@@ -174,5 +181,9 @@ public class Playing extends GameScene implements SceneMethods {
 
     public EnemyHandler getEnemyHandler() {
         return enemyHandler;
+    }
+
+    public void shootEnemy(Tower tower, Enemy enemy) {
+        projectileHandler.newProjectile(tower, enemy);
     }
 }
