@@ -53,13 +53,13 @@ public class Constants {
 
         public static int GetStartHealth(int enemyType) {
             if(enemyType == ORC) {
-                return 100;
+                return 1000;
             } else if(enemyType == BAT) {
-                return 75;
+                return 750;
             } else if(enemyType == KNIGHT) {
-                return 300;
+                return 3000;
             } else if(enemyType == WOLF) {
-                return 20;
+                return 200;
             }
 
             return 0;
@@ -109,11 +109,11 @@ public class Constants {
 
         public static float GetDefaultCooldown(int towerType) {
             if(towerType == CANNON) {
-                return 10f;
+                return 20f;
             } else if(towerType == ARCHER) {
-                return 6f;
+                return 10f;
             } else if(towerType == WIZARD) {
-                return 15f;
+                return 25f;
             }
 
             return 0;
