@@ -14,6 +14,8 @@ public abstract class Enemy {
     protected int enemyType;
     protected int lastDirection;
     protected boolean alive = true;
+    protected int slowTickLimit = 60 * 3;
+    protected int slowTick = slowTickLimit;
 
     public Enemy(float x, float y, int id, int enemyType) {
         this.x = x;
@@ -38,8 +40,18 @@ public abstract class Enemy {
         }
     }
 
+    public void slow() {
+        slowTick = 0;
+    }
+
     public void move(float speed, float direction) {
         lastDirection = (int)direction;
+
+        float powerOfSlow = 0.5f;
+        if(slowTick < slowTickLimit) {
+            slowTick++;
+            speed *= powerOfSlow;
+        }
 
         if(direction == LEFT) {
             this.x -= speed;
@@ -122,5 +134,9 @@ public abstract class Enemy {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public boolean isSlowed() {
+        return slowTick < slowTickLimit;
     }
 }

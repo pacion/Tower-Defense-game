@@ -19,6 +19,7 @@ public class EnemyHandler {
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private PathPoint start, end;
     private int HPBarWidth = 20;
+    private BufferedImage slowEffect;
 
     public EnemyHandler(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
@@ -26,12 +27,18 @@ public class EnemyHandler {
         this.start = start;
         this.end = end;
 
+        loadEffectImage();
+
         addEnemy(ORC);
         addEnemy(BAT);
         addEnemy(KNIGHT);
         addEnemy(WOLF);
 
         loadEnemyImages();
+    }
+
+    private void loadEffectImage() {
+        slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 9, 32 * 2, 32, 32);
     }
 
     private void loadEnemyImages() {
@@ -168,7 +175,14 @@ public class EnemyHandler {
             if(enemy.isAlive()) {
                 drawEnemy(enemy, graphics);
                 drawHealthBar(enemy, graphics);
+                drawEffects(enemy, graphics);
             }
+        }
+    }
+
+    private void drawEffects(Enemy enemy, Graphics graphics) {
+        if(enemy.isSlowed()) {
+            graphics.drawImage(slowEffect, (int)enemy.getX(),  (int)enemy.getY(), null);
         }
     }
 

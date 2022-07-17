@@ -130,7 +130,7 @@ public class ProjectileHandler {
                     enemy.hurt(projectile.getDamage());
 
                     if (projectile.getProjectileType() == ICE) {
-                        System.out.println("--------- slow apply okokokok \n\n");
+                        enemy.slow();
                     }
 
                     return true;
