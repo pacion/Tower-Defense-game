@@ -9,6 +9,7 @@ import enemies.Enemy;
 import handlers.EnemyHandler;
 import handlers.ProjectileHandler;
 import handlers.TowerHandler;
+import handlers.WaveHandler;
 import helperMethods.LoadSave;
 import main.Game;
 import objects.PathPoint;
@@ -23,6 +24,7 @@ public class Playing extends GameScene implements SceneMethods {
     private int mouseX, mouseY;
     private EnemyHandler enemyHandler;
     private TowerHandler towerHandler;
+    private WaveHandler waveHandler;
     private Tower selectedTower;
     private PathPoint start, end;
     private ProjectileHandler projectileHandler;
@@ -37,6 +39,7 @@ public class Playing extends GameScene implements SceneMethods {
         enemyHandler = new EnemyHandler(this, start, end);
         towerHandler = new TowerHandler(this);
         projectileHandler = new ProjectileHandler(this);
+        waveHandler = new WaveHandler(this);
     }
 
     public void setSelectedTower(Tower selectedTower) {
@@ -169,18 +172,22 @@ public class Playing extends GameScene implements SceneMethods {
         return game.getTileManager().getTile(id).getTileType();
     }
 
-    public TowerHandler getTowerHandler() {
-        return towerHandler;
-    }
-
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
         }
     }
 
+    public TowerHandler getTowerHandler() {
+        return towerHandler;
+    }
+
     public EnemyHandler getEnemyHandler() {
         return enemyHandler;
+    }
+
+    public WaveHandler getWaveHandler() {
+        return waveHandler;
     }
 
     public void shootEnemy(Tower tower, Enemy enemy) {
