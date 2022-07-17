@@ -72,21 +72,25 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void updateGame() {
+        if(GameStates.gameState == GameStates.EDIT) {
+            editing.update();
+        } else if(GameStates.gameState == GameStates.MENU) {
 
-        // System.out.println("Game Updated!");
+        } else if(GameStates.gameState == GameStates.PLAYING) {
+            playing.update();
+        } else if(GameStates.gameState == GameStates.SETTINGS) {
+
+        }
     }
 
     public static void main(String[] args) {
-
         Game game = new Game();
         game.gameScreen.initInputs();
         game.start();
-
     }
 
     @Override
     public void run() {
-
         double timePerFrame = 1000000000.0 / FPS_SET;
         double timePerUpdate = 1000000000.0 / UPS_SET;
 

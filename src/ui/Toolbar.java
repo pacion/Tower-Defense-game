@@ -1,5 +1,6 @@
 package ui;
 
+import helperMethods.LoadSave;
 import objects.Tile;
 import scenes.Editing;
 
@@ -13,6 +14,8 @@ import static main.GameStates.*;
 
 public class Toolbar extends Bar {
     private MyButton buttonMenu, buttonSave;
+    private MyButton buttonPathStart, buttonPathEnd;
+    private BufferedImage pathStart, pathEnd;
     private Editing editing;
     private Tile selectedTile;
 
@@ -27,7 +30,13 @@ public class Toolbar extends Bar {
         super(x, y, width, height);
         this.editing = editing;
 
+        initPathImages();
         initButtons();
+    }
+
+    private void initPathImages() {
+        pathStart = LoadSave.getSpriteAtlas().getSubimage(7 * 32, 2 * 32, 32, 32);
+        pathEnd = LoadSave.getSpriteAtlas().getSubimage(8 * 32, 2 * 32, 32, 32);
     }
 
     private void initButtons() {
@@ -50,6 +59,9 @@ public class Toolbar extends Bar {
         initMapButton(buttonWaterCorner, editing.getGame().getTileManager().getWaterCorners(), xStart, yStart, xOffset, width, height, index++);
         initMapButton(buttonWaterBeaches, editing.getGame().getTileManager().getWaterBeaches(), xStart, yStart, xOffset, width, height, index++);
         initMapButton(buttonWaterIslands, editing.getGame().getTileManager().getWaterIslands(), xStart, yStart, xOffset, width, height, index++);
+
+        buttonPathStart = new MyButton("PathStart", xStart, yStart + xOffset, width, height, index++);
+        buttonPathEnd = new MyButton("PathEnd", xStart + xOffset, yStart + xOffset, width, height, index++);
     }
 
     private void initMapButton(MyButton button, ArrayList<Tile> list, int x, int y, int xOff, int width, int height, int id) {
@@ -58,7 +70,7 @@ public class Toolbar extends Bar {
     }
 
     public void draw(Graphics graphics) {
-        graphics.setColor(new Color(180,180,108));
+        graphics.setColor(new Color(1, 93, 146, 228));
         graphics.fillRect(x, y, width, height);
 
         drawButtons(graphics);
@@ -68,10 +80,18 @@ public class Toolbar extends Bar {
         buttonMenu.draw(graphics);
         buttonSave.draw(graphics);
 
+        drawPathButton(graphics, buttonPathStart, pathStart);
+        drawPathButton(graphics, buttonPathEnd, pathEnd);
+
         drawNormalButton(graphics, buttonGrass);
         drawNormalButton(graphics, buttonWater);
         drawSelectedTile(graphics);
         drawMapButtons(graphics);
+    }
+
+    private void drawPathButton(Graphics graphics, MyButton button, BufferedImage image) {
+        graphics.drawImage(image, button.x, button.y, button.width, button.height, null);
+        drawButtonFeedback(graphics, button);
     }
 
     private void drawNormalButton(Graphics graphics, MyButton button) {
@@ -88,20 +108,6 @@ public class Toolbar extends Bar {
             graphics.drawImage(image, button.x, button.y, button.width, button.height, null);
 
             drawButtonFeedback(graphics, button);
-        }
-    }
-
-    private void drawButtonFeedback(Graphics graphics, MyButton button) {
-        if(button.isMouseOver())
-            graphics.setColor(Color.white);
-        else
-            graphics.setColor(Color.black);
-
-        graphics.drawRect(button.x, button.y, button.width, button.height);
-
-        if(button.isMousePressed()) {
-            graphics.drawRect(button.x + 1, button.y + 1, button.width - 2, button.height - 2);
-            graphics.drawRect(button.x + 2, button.y + 2, button.width - 4, button.height - 4);
         }
     }
 
@@ -136,6 +142,12 @@ public class Toolbar extends Bar {
             selectedTile = editing.getGame().getTileManager().getTile(buttonGrass.getId());
             editing.setSelectedTile(selectedTile);
             return;
+        } else if(buttonPathStart.getBounds().contains(x, y)) {
+            selectedTile = new Tile(pathStart, -1, -1);
+            editing.setSelectedTile(selectedTile);
+        } else if(buttonPathEnd.getBounds().contains(x, y)) {
+            selectedTile = new Tile(pathEnd, -2, -2);
+            editing.setSelectedTile(selectedTile);
         } else {
             for(MyButton button : map.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -154,6 +166,8 @@ public class Toolbar extends Bar {
         buttonSave.setMouseOver(false);
         buttonWater.setMouseOver(false);
         buttonGrass.setMouseOver(false);
+        buttonPathStart.setMouseOver(false);
+        buttonPathEnd.setMouseOver(false);
 
         for(MyButton button : map.keySet()) {
             button.setMouseOver(false);
@@ -167,6 +181,10 @@ public class Toolbar extends Bar {
             buttonWater.setMouseOver(true);
         } else if(buttonGrass.getBounds().contains(x, y)) {
             buttonGrass.setMouseOver(true);
+        } else if (buttonPathStart.getBounds().contains(x, y)) {
+            buttonPathStart.setMouseOver(true);
+        } else if(buttonPathEnd.getBounds().contains(x, y)) {
+            buttonPathEnd.setMouseOver(true);
         } else {
             for(MyButton button : map.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -219,6 +237,14 @@ public class Toolbar extends Bar {
         selectedTile = map.get(currentButton).get(currentIndex);
 
         editing.setSelectedTile(selectedTile);
+    }
+
+    public BufferedImage getStartPathImage() {
+        return pathStart;
+    }
+
+    public BufferedImage getEndPathImage() {
+        return pathEnd;
     }
 
 }
