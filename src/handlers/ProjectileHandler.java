@@ -52,11 +52,15 @@ public class ProjectileHandler {
         if(tower.getY() > enemy.getY())
             ySpeed *= -1;
 
-        float arcusValue = (float)Math.atan(yDistance / (float)xDistance);
-        float rotation = (float)Math.toDegrees(arcusValue);
+        float rotation = 0;
 
-        if(xDistance < 0) {
-            rotation += 180;
+        if(type == ARROW ) {
+            float arcusValue = (float) Math.atan(yDistance / (float) xDistance);
+            rotation = (float) Math.toDegrees(arcusValue);
+
+            if (xDistance < 0) {
+                rotation += 180;
+            }
         }
 
         projectiles.add(new Projectile(
@@ -92,11 +96,18 @@ public class ProjectileHandler {
 
         for(Projectile projectile : projectiles) {
             if(projectile.isActive()) {
-                graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
-                graphics2D.rotate(Math.toRadians(projectile.getRotation()));
-                graphics2D.drawImage(projectileImages[projectile.getProjectileType()], -16, -16, null);
-                graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
-                graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
+
+                if(projectile.getProjectileType() == ARROW) {
+                    graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
+                    graphics2D.rotate(Math.toRadians(projectile.getRotation()));
+                    graphics2D.drawImage(projectileImages[projectile.getProjectileType()], -16, -16, null);
+                    graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
+                    graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
+                } else {
+                    graphics2D.drawImage(projectileImages[projectile.getProjectileType()],
+                            (int)projectile.getPosition().x - 16,
+                            (int)projectile.getPosition().y - 16, null);
+                }
             }
         }
     }
