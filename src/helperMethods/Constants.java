@@ -41,11 +41,11 @@ public class Constants {
             if(enemyType == ORC) {
                 return 0.5f;
             } else if(enemyType == BAT) {
-                return 0.75f;
+                return 0.6f;
             } else if(enemyType == KNIGHT) {
-                return 0.2f;
+                return 0.3f;
             } else if(enemyType == WOLF) {
-                return 1.2f;
+                return 0.75f;
             }
 
             return 0;
@@ -53,13 +53,13 @@ public class Constants {
 
         public static int GetStartHealth(int enemyType) {
             if(enemyType == ORC) {
-                return 1000;
+                return 100;
             } else if(enemyType == BAT) {
-                return 750;
+                return 75;
             } else if(enemyType == KNIGHT) {
-                return 3000;
+                return 300;
             } else if(enemyType == WOLF) {
-                return 200;
+                return 40;
             }
 
             return 0;
@@ -87,9 +87,9 @@ public class Constants {
             if(towerType == CANNON) {
                 return 10;
             } else if(towerType == ARCHER) {
-                return 7;
+                return 5;
             } else if(towerType == WIZARD) {
-                return 12;
+                return 1;
             }
 
             return 0;
@@ -97,11 +97,11 @@ public class Constants {
 
         public static float GetDefaultRange(int towerType) {
             if(towerType == CANNON) {
-                return 60;
+                return 80;
             } else if(towerType == ARCHER) {
-                return 180;
+                return 120;
             } else if(towerType == WIZARD) {
-                return 100;
+                return 140;
             }
 
             return 0;
@@ -109,11 +109,11 @@ public class Constants {
 
         public static float GetDefaultCooldown(int towerType) {
             if(towerType == CANNON) {
-                return 20f;
+                return 80f;
             } else if(towerType == ARCHER) {
-                return 10f;
-            } else if(towerType == WIZARD) {
                 return 25f;
+            } else if(towerType == WIZARD) {
+                return 40f;
             }
 
             return 0;
