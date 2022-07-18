@@ -28,12 +28,6 @@ public class EnemyHandler {
         this.end = end;
 
         loadEffectImage();
-
-        addEnemy(ORC);
-        addEnemy(BAT);
-        addEnemy(KNIGHT);
-        addEnemy(WOLF);
-
         loadEnemyImages();
     }
 
@@ -50,35 +44,11 @@ public class EnemyHandler {
     }
 
     public void update() {
-        updateWaveManager();
-
-        if(isTimeForNewEnemy()) {
-            spawnEnemy();
-        }
-
         for(Enemy enemy : enemies) {
             if(enemy.isAlive()) {
                 updateEnemyMove(enemy);
             }
         }
-    }
-
-    private void updateWaveManager() {
-        playing.getWaveHandler().update();
-    }
-
-    private boolean isTimeForNewEnemy() {
-        if(playing.getWaveHandler().isTimeForNewEnemy()) {
-            if(playing.getWaveHandler().isThereMoreEnemiesInWave()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void spawnEnemy() {
-        addEnemy(playing.getWaveHandler().getNextEnemy());
     }
 
     public void updateEnemyMove(Enemy enemy) {
@@ -92,7 +62,7 @@ public class EnemyHandler {
         if(getTileType(newX, newY) == ROAD_TILE) {
             enemy.move(GetSpeed(enemy.getEnemyType()), enemy.getLastDirection());
         } else if(isAtEndOfPath(enemy)) {
-            System.out.println("koniec trasy");
+            enemy.kill();
         } else {
             setNewDirectionAndMove(enemy);
         }
@@ -228,4 +198,13 @@ public class EnemyHandler {
         return enemies;
     }
 
+    public void spawnEnemy(int nextEnemy) {
+        addEnemy(nextEnemy);
+    }
+
+    public int getAmountOfAliveEnemies() {
+        return (int) enemies.stream()
+                .filter(Enemy::isAlive)
+                .count();
+    }
 }

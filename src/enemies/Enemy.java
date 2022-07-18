@@ -71,6 +71,11 @@ public abstract class Enemy {
         bounds.y = (int)y;
     }
 
+    public void kill() {
+        alive = false;
+        health = 0;
+    }
+
     public float getHealthBarFloat() {
         return health / (float) maxHealth;
     }

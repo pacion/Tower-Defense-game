@@ -4,6 +4,7 @@ import static main.GameStates.MENU;
 import static main.GameStates.SetGameState;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 import helperMethods.Constants;
 import objects.Tower;
@@ -15,10 +16,12 @@ public class ActionBar extends Bar {
     private MyButton[] towerButtons;
     private Tower selectedTower;
     private Tower displayedTower;
+    private DecimalFormat formatter;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
+        formatter = new DecimalFormat("0.0");
 
         initButtons();
     }
@@ -55,6 +58,34 @@ public class ActionBar extends Bar {
 
         drawButtons(graphics);
         drawDisplayedTower(graphics);
+        drawWaveInformation(graphics);
+    }
+
+    private void drawWaveInformation(Graphics graphics) {
+       //if(playing.getWaveHandler().isWaveTimerStarted()) {
+           drawWaveTimerInformation(graphics);
+            drawEnemiesLeftInformation(graphics);
+            drawWavesLeftInformation(graphics);//}
+    }
+
+    private void drawEnemiesLeftInformation(Graphics graphics) {
+        int current = playing.getWaveHandler().getWaveIndex();
+        int size = playing.getWaveHandler().getWaves().size();
+        graphics.drawString("Wave: " + (current + 1) + " / " + size, 425,720);
+    }
+
+    private void drawWavesLeftInformation(Graphics graphics) {
+        int remaining = playing.getEnemyHandler().getAmountOfAliveEnemies();
+        graphics.drawString("Enemies left: " + remaining, 425, 690);
+    }
+
+
+    private void drawWaveTimerInformation(Graphics graphics) {
+        float timeLeft = playing.getWaveHandler().getTimeLeft();
+        String formatedText = formatter.format(timeLeft);
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(new Font("Monaco", Font.BOLD, 20));
+        graphics.drawString("Time Left: " + formatedText, 425, 660);
     }
 
     private void drawDisplayedTower(Graphics graphics) {
