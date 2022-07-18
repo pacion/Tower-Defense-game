@@ -1,6 +1,7 @@
 package handlers;
 
 import enemies.Enemy;
+import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Projectile;
 import objects.Tower;
@@ -67,18 +68,25 @@ public class ProjectileHandler {
 
         float rotation = 0;
 
-        if(type == ARROW ) {
-            float arcusValue = (float) Math.atan(yDistance / (float) xDistance);
-            rotation = (float) Math.toDegrees(arcusValue);
+        if (type == ARROW) {
+            float arcValue = (float) Math.atan(yDistance / (float) xDistance);
+            rotation = (float) Math.toDegrees(arcValue);
 
-            if (xDistance < 0) {
+            if (xDistance < 0)
                 rotation += 180;
+        }
+
+        for (Projectile projectile : projectiles) {
+            if (!projectile.isActive()) {
+                if (projectile.getProjectileType() == type) {
+                    projectile.reuse(tower.getX() + 16, tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation);
+                    return;
+                }
             }
         }
 
-        projectiles.add(new Projectile(
-                tower.getX() + 16,
-                tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation, projectileId++, type));
+        projectiles.add(new Projectile(tower.getX() + 16, tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation, projectileId++, type));
+
     }
 
     public void update() {
