@@ -1,5 +1,7 @@
 package enemies;
 
+import handlers.EnemyHandler;
+
 import java.awt.*;
 import java.awt.image.renderable.RenderableImage;
 import static helperMethods.Constants.Direction.*;
@@ -16,12 +18,14 @@ public abstract class Enemy {
     protected boolean alive = true;
     protected int slowTickLimit = 60 * 3;
     protected int slowTick = slowTickLimit;
+    protected EnemyHandler enemyHandler;
 
-    public Enemy(float x, float y, int id, int enemyType) {
+    public Enemy(float x, float y, int id, int enemyType, EnemyHandler enemyHandler) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.enemyType = enemyType;
+        this.enemyHandler = enemyHandler;
         bounds = new Rectangle((int)x, (int)y, 32, 32);
         lastDirection = -1;
         setStartHealth();
@@ -37,6 +41,7 @@ public abstract class Enemy {
 
         if(health <= 0) {
             alive = false;
+            enemyHandler.rewardPlayer(enemyType);
         }
     }
 

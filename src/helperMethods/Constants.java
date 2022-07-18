@@ -37,6 +37,20 @@ public class Constants {
         public static final int KNIGHT = 2;
         public static final int WOLF = 3;
 
+        public static int GetReward(int enemyType) {
+            if(enemyType == ORC) {
+                return 10;
+            } else if(enemyType == BAT) {
+                return 10;
+            } else if(enemyType == KNIGHT) {
+                return 20;
+            } else if(enemyType == WOLF) {
+                return 15;
+            }
+
+            return 0;
+        }
+
         public static float GetSpeed(int enemyType) {
             if(enemyType == ORC) {
                 return 0.5f;
@@ -57,9 +71,9 @@ public class Constants {
             } else if(enemyType == BAT) {
                 return 75;
             } else if(enemyType == KNIGHT) {
-                return 300;
+                return 800;
             } else if(enemyType == WOLF) {
-                return 40;
+                return 50;
             }
 
             return 0;
@@ -71,7 +85,19 @@ public class Constants {
         public static final int ARCHER = 1;
         public static final int WIZARD = 2;
 
-        public static String getName(int towerType) {
+        public static int GetTowerCost(int towerType) {
+            if(towerType == CANNON) {
+                return 60;
+            } else if(towerType == ARCHER) {
+                return 35;
+            } else if(towerType == WIZARD) {
+                return 45;
+            }
+
+            return 0;
+        }
+
+        public static String GetName(int towerType) {
             if(towerType == CANNON) {
                 return "Cannon";
             } else if(towerType == ARCHER) {
@@ -85,7 +111,7 @@ public class Constants {
 
         public static int GetStartDamage(int towerType) {
             if(towerType == CANNON) {
-                return 10;
+                return 12;
             } else if(towerType == ARCHER) {
                 return 5;
             } else if(towerType == WIZARD) {
@@ -109,7 +135,7 @@ public class Constants {
 
         public static float GetDefaultCooldown(int towerType) {
             if(towerType == CANNON) {
-                return 80f;
+                return 75f;
             } else if(towerType == ARCHER) {
                 return 25f;
             } else if(towerType == WIZARD) {

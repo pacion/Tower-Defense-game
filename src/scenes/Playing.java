@@ -10,6 +10,7 @@ import handlers.EnemyHandler;
 import handlers.ProjectileHandler;
 import handlers.TowerHandler;
 import handlers.WaveHandler;
+import helperMethods.Constants;
 import helperMethods.LoadSave;
 import main.Game;
 import objects.PathPoint;
@@ -28,6 +29,7 @@ public class Playing extends GameScene implements SceneMethods {
     private Tower selectedTower;
     private PathPoint start, end;
     private ProjectileHandler projectileHandler;
+    private int goldTick = 0;
 
     public Playing(Game game) {
         super(game);
@@ -59,6 +61,12 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void update() {
         updateTick();
+
+        goldTick++;
+
+        if(goldTick % (60 * 2) == 0) {
+            actionBar.addGold(1);
+        }
 
         if(isAllEnemiesDead()) {
             if(isThereMoreWaves()) {
@@ -164,6 +172,8 @@ public class Playing extends GameScene implements SceneMethods {
                 if(isTileGrass(mouseX, mouseY)) {
                     if(getTowerAt(mouseX, mouseY) == null) {
                         towerHandler.addTower(selectedTower, mouseX, mouseY);
+                        removeGold(selectedTower.getTowerType());
+
                         selectedTower = null;
                     }
                 }
@@ -172,6 +182,10 @@ public class Playing extends GameScene implements SceneMethods {
                 actionBar.displayTower(tower);
             }
         }
+    }
+
+    private void removeGold(int towerType) {
+        actionBar.payForTower(towerType);
     }
 
     private Tower getTowerAt(int x, int y) {
@@ -241,6 +255,10 @@ public class Playing extends GameScene implements SceneMethods {
 
     public WaveHandler getWaveHandler() {
         return waveHandler;
+    }
+
+    public void rewardPLayer(int enemyType) {
+        actionBar.addGold(Constants.Enemies.GetReward(enemyType));
     }
 
     public void shootEnemy(Tower tower, Enemy enemy) {

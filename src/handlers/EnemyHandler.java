@@ -154,13 +154,13 @@ public class EnemyHandler {
         int y = start.getY() * 32;
 
         if(enemyType == ORC) {
-            enemies.add(new Orc(x,  y, 0));
+            enemies.add(new Orc(x,  y, 0, this));
         } else if(enemyType == KNIGHT) {
-            enemies.add(new Knight(x,  y, 0));
+            enemies.add(new Knight(x,  y, 0, this));
         } else if(enemyType == BAT) {
-            enemies.add(new Bat(x,  y, 0));
+            enemies.add(new Bat(x,  y, 0, this));
         } else if(enemyType == WOLF) {
-            enemies.add(new Wolf(x,  y, 0));
+            enemies.add(new Wolf(x,  y, 0, this));
         }
     }
 
@@ -206,5 +206,9 @@ public class EnemyHandler {
         return (int) enemies.stream()
                 .filter(Enemy::isAlive)
                 .count();
+    }
+
+    public void rewardPlayer(int enemyType) {
+        playing.rewardPLayer(enemyType);
     }
 }
