@@ -7,6 +7,7 @@ public class Tower {
     private float  range, cooldown;
     private int cooldownTick;
     private int damage;
+    private int tier;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
@@ -20,6 +21,23 @@ public class Tower {
 
     public void update() {
         cooldownTick++;
+    }
+
+    public void upgradeTower() {
+        this.tier++;
+
+        if(towerType == ARCHER) {
+            damage += 2;
+            range += 10;
+            cooldown -= 5;
+        } else if(towerType == CANNON) {
+            damage += 5;
+            range += 12;
+            cooldown -= 15;
+        } else if(towerType == WIZARD) {
+            range += 15;
+            cooldown -= 15;
+        }
     }
 
     public boolean isCooldownOver() {
@@ -48,6 +66,10 @@ public class Tower {
 
     public float getCooldown() {
         return cooldown;
+    }
+
+    public int getTier() {
+        return tier;
     }
 
     public void setCooldown(float cooldown) {

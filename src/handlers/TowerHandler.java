@@ -95,4 +95,14 @@ public class TowerHandler {
     public void removeTower(Tower displayedTower) {
         towers.removeIf(tower -> tower.getId() == displayedTower.getId());
     }
+
+    public void upgradeTower(Tower displayedTower) {
+        Tower matched = towers.stream()
+                .filter(tower -> tower.getId() == displayedTower.getId())
+                .findFirst()
+                .orElse(null);
+
+        assert matched != null;
+        matched.upgradeTower();
+    }
 }
