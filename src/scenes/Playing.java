@@ -264,4 +264,8 @@ public class Playing extends GameScene implements SceneMethods {
     public void shootEnemy(Tower tower, Enemy enemy) {
         projectileHandler.newProjectile(tower, enemy);
     }
+
+    public void removeTower(Tower displayedTower) {
+        towerHandler.removeTower(displayedTower);
+    }
 }

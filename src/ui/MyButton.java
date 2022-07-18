@@ -47,12 +47,11 @@ public class MyButton {
 
     private void drawBody(Graphics graphics) {
         if(mouseOver) {
-            graphics.setColor(Color.GRAY);
+            graphics.setColor(new Color(193, 193, 193));
         } else {
             graphics.setColor(Color.WHITE);
         }
 
-        graphics.setColor(Color.WHITE);
         graphics.fillRect(x, y, width, height);
     }
 

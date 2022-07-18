@@ -8,6 +8,7 @@ import scenes.Playing;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import static helperMethods.Constants.Towers.*;
 import static helperMethods.Utils.GetHypotDistance;
@@ -89,5 +90,9 @@ public class TowerHandler {
 
     public BufferedImage[] getTowerImages() {
         return towerImages;
+    }
+
+    public void removeTower(Tower displayedTower) {
+        towers.removeIf(tower -> tower.getId() == displayedTower.getId());
     }
 }
