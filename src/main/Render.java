@@ -18,6 +18,8 @@ public class Render {
             game.getSettings().render(graphics);
         } else if(GameStates.gameState == GameStates.EDIT) {
             game.getEditor().render(graphics);
+        } else if(GameStates.gameState == GameStates.GAME_OVER) {
+            game.getGameOver().render(graphics);
         }
     }
 }

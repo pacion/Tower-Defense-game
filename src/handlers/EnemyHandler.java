@@ -63,6 +63,7 @@ public class EnemyHandler {
             enemy.move(GetSpeed(enemy.getEnemyType()), enemy.getLastDirection());
         } else if(isAtEndOfPath(enemy)) {
             enemy.kill();
+            playing.removeOneHeart();
         } else {
             setNewDirectionAndMove(enemy);
         }

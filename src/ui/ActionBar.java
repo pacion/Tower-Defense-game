@@ -21,6 +21,7 @@ public class ActionBar extends Bar {
     private boolean showTowerCost;
     private int towerCostType;
     private MyButton sellTower, upgradeTower;
+    private int hearts = 5;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -83,6 +84,8 @@ public class ActionBar extends Bar {
         if(playing.isGamePaused()) {
             graphics.drawString("Game is paused!", 110, 790);
         }
+
+        graphics.drawString("Hearts: " + hearts, 110, 750);
     }
 
     private void drawTowerCost(Graphics graphics) {
@@ -336,6 +339,18 @@ public class ActionBar extends Bar {
 
     public void payForTower(int towerType) {
         this.gold -= Constants.Towers.GetTowerCost(towerType);
+    }
+
+    public void removeOneHeart() {
+        hearts--;
+
+        if(hearts <= 0) {
+            System.out.println("Game over.");
+        }
+    }
+
+    public int getHearts() {
+        return hearts;
     }
 
     public void addGold(int getReward) {

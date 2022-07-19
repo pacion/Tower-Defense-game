@@ -152,7 +152,7 @@ public class ProjectileHandler {
         if(projectile.getPosition().x >= 0)
             if(projectile.getPosition().x <= 640)
                 if(projectile.getPosition().y >= 0)
-                    if(projectile.getPosition().y <= 800)
+                    if(projectile.getPosition().y <= 640)
                         return false;
 
         return true;

@@ -61,7 +61,6 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-
         if(!gamePaused) {
             updateTick();
 
@@ -283,5 +282,9 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void upgradeTower(Tower displayedTower) {
         towerHandler.upgradeTower(displayedTower);
+    }
+
+    public void removeOneHeart() {
+        actionBar.removeOneHeart();
     }
 }

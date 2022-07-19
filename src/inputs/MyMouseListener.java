@@ -25,6 +25,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 game.getSettings().mouseClicked(e.getX(), e.getY());
             } else if(GameStates.gameState == GameStates.EDIT) {
                 game.getEditor().mouseClicked(e.getX(), e.getY());
+            } else if(GameStates.gameState == GameStates.GAME_OVER) {
+                game.getGameOver().mouseClicked(e.getX(), e.getY());
             }
         }
     }
@@ -39,6 +41,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getSettings().mousePressed(e.getX(), e.getY());
         } else if(GameStates.gameState == GameStates.EDIT) {
             game.getEditor().mousePressed(e.getX(), e.getY());
+        } else if(GameStates.gameState == GameStates.GAME_OVER) {
+            game.getGameOver().mousePressed(e.getX(), e.getY());
         }
     }
 
@@ -53,6 +57,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
                 game.getSettings().mouseReleased(e.getX(), e.getY());
             } else if(GameStates.gameState == GameStates.EDIT) {
                 game.getEditor().mouseReleased(e.getX(), e.getY());
+            } else if(GameStates.gameState == GameStates.GAME_OVER) {
+                game.getGameOver().mouseReleased(e.getX(), e.getY());
             }
         }
     }
@@ -90,6 +96,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getSettings().mouseMoved(e.getX(), e.getY());
         } else if(GameStates.gameState == GameStates.EDIT) {
             game.getEditor().mouseMoved(e.getX(), e.getY());
+        } else if(GameStates.gameState == GameStates.GAME_OVER) {
+            game.getGameOver().mouseMoved(e.getX(), e.getY());
         }
     }
 }

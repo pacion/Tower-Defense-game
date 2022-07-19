@@ -22,16 +22,16 @@ public class Menu extends GameScene implements SceneMethods{
     }
 
     private void initButtons() {
-        int w = 150;
-        int h = w / 4;
-        int x = 640 / 2 - w / 2;
+        int width = 150;
+        int height = width / 4;
+        int x = 640 / 2 - width / 2;
         int y = 150;
         int yOffset = 100;
 
-        buttonPlaying = new MyButton("Play", x, y, w, h);
-        buttonEdit = new MyButton("Edit", x, y + yOffset, w, h);
-        buttonSettings = new MyButton("Settings", x, y + yOffset * 2, w, h);
-        buttonQuit = new MyButton("Quit", x, y + yOffset * 3, w, h);
+        buttonPlaying = new MyButton("Play", x, y, width, height);
+        buttonEdit = new MyButton("Edit", x, y + yOffset, width, height);
+        buttonSettings = new MyButton("Settings", x, y + yOffset * 2, width, height);
+        buttonQuit = new MyButton("Quit", x, y + yOffset * 3, width, height);
     }
 
     @Override
