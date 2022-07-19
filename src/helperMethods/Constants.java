@@ -8,11 +8,11 @@ public class Constants {
 
         public static float GetSpeed(float type) {
             if(type == ARROW) {
-                return 3f;
+                return 3.5f;
             } else if(type == BOMB) {
-                return 1f;
-            } else if(type == ICE) {
                 return 2f;
+            } else if(type == ICE) {
+                return 2.5f;
             }
             return 0;
         }
@@ -39,11 +39,11 @@ public class Constants {
 
         public static int GetReward(int enemyType) {
             if(enemyType == ORC) {
-                return 10;
+                return 8;
             } else if(enemyType == BAT) {
                 return 10;
             } else if(enemyType == KNIGHT) {
-                return 20;
+                return 25;
             } else if(enemyType == WOLF) {
                 return 15;
             }
@@ -53,13 +53,13 @@ public class Constants {
 
         public static float GetSpeed(int enemyType) {
             if(enemyType == ORC) {
-                return 0.5f;
+                return 0.45f;
             } else if(enemyType == BAT) {
-                return 0.6f;
+                return 0.60f;
             } else if(enemyType == KNIGHT) {
-                return 0.3f;
+                return 0.2f;
             } else if(enemyType == WOLF) {
-                return 0.75f;
+                return 1.0f;
             }
 
             return 0;
@@ -67,13 +67,13 @@ public class Constants {
 
         public static int GetStartHealth(int enemyType) {
             if(enemyType == ORC) {
-                return 100;
+                return 120;
             } else if(enemyType == BAT) {
-                return 75;
+                return 120;
             } else if(enemyType == KNIGHT) {
-                return 800;
+                return 825;
             } else if(enemyType == WOLF) {
-                return 50;
+                return 200;
             }
 
             return 0;
@@ -97,21 +97,9 @@ public class Constants {
             return 0;
         }
 
-        public static String GetName(int towerType) {
-            if(towerType == CANNON) {
-                return "Cannon";
-            } else if(towerType == ARCHER) {
-                return "Archer";
-            } else if(towerType == WIZARD) {
-                return "Wizard";
-            }
-
-            return "";
-        }
-
         public static int GetStartDamage(int towerType) {
             if(towerType == CANNON) {
-                return 12;
+                return 10;
             } else if(towerType == ARCHER) {
                 return 5;
             } else if(towerType == WIZARD) {
@@ -123,11 +111,11 @@ public class Constants {
 
         public static float GetDefaultRange(int towerType) {
             if(towerType == CANNON) {
-                return 80;
+                return 85;
             } else if(towerType == ARCHER) {
-                return 120;
+                return 100;
             } else if(towerType == WIZARD) {
-                return 140;
+                return 120;
             }
 
             return 0;
@@ -143,6 +131,18 @@ public class Constants {
             }
 
             return 0;
+        }
+
+        public static String GetName(int towerType) {
+            if(towerType == CANNON) {
+                return "Cannon";
+            } else if(towerType == ARCHER) {
+                return "Archer";
+            } else if(towerType == WIZARD) {
+                return "Wizard";
+            }
+
+            return "";
         }
     }
 }

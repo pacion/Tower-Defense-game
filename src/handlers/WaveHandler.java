@@ -6,6 +6,8 @@ import scenes.Playing;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static helperMethods.Constants.Enemies.*;
+
 public class WaveHandler {
     private Playing playing;
     private ArrayList<Wave> waves = new ArrayList<>();
@@ -48,12 +50,15 @@ public class WaveHandler {
     }
 
     private void createWaves() {
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,0))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,0,1,1))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,0,0,3,3,3,3))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(1,1,1,1,3,3,3,3))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,0,0,2,3,3,3))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,2,2,2,2,2,1,1,3,3,3))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,BAT,BAT))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,BAT,BAT,BAT))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,BAT,BAT,WOLF,WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,WOLF,WOLF,WOLF,WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,KNIGHT,BAT,BAT,WOLF,WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(KNIGHT,BAT,BAT,BAT,BAT,WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,KNIGHT,KNIGHT,KNIGHT,KNIGHT,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF))));
     }
 
     public ArrayList<Wave> getWaves() {

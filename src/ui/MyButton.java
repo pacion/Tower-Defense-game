@@ -85,6 +85,10 @@ public class MyButton {
         this.mouseOver = mouseOver;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public boolean isMouseOver() {
         return mouseOver;
     }

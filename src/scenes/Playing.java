@@ -30,6 +30,7 @@ public class Playing extends GameScene implements SceneMethods {
     private PathPoint start, end;
     private ProjectileHandler projectileHandler;
     private int goldTick = 0;
+    private boolean gamePaused;
 
     public Playing(Game game) {
         super(game);
@@ -60,33 +61,36 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-        updateTick();
 
-        goldTick++;
+        if(!gamePaused) {
+            updateTick();
 
-        if(goldTick % (60 * 2) == 0) {
-            actionBar.addGold(1);
-        }
+            goldTick++;
 
-        if(isAllEnemiesDead()) {
-            if(isThereMoreWaves()) {
-                waveHandler.startWaveTimer();
-                if(isWaveTimerOver()) {
-                    waveHandler.increaseWaveIndex();
-                    enemyHandler.getEnemies().clear();
-                    waveHandler.resetEnemyIndex();
+            if (goldTick % (60 * 4) == 0) {
+                actionBar.addGold(3);
+            }
+
+            if (isAllEnemiesDead()) {
+                if (isThereMoreWaves()) {
+                    waveHandler.startWaveTimer();
+                    if (isWaveTimerOver()) {
+                        waveHandler.increaseWaveIndex();
+                        enemyHandler.getEnemies().clear();
+                        waveHandler.resetEnemyIndex();
+                    }
                 }
             }
-        }
 
-        if(isTimeForNewEnemy()) {
-            spawnEnemy();
-        }
+            if (isTimeForNewEnemy()) {
+                spawnEnemy();
+            }
 
-        enemyHandler.update();
-        towerHandler.update();
-        projectileHandler.update();
-        waveHandler.update();
+            enemyHandler.update();
+            towerHandler.update();
+            projectileHandler.update();
+            waveHandler.update();
+        }
     }
 
     private boolean isWaveTimerOver() {
@@ -161,6 +165,14 @@ public class Playing extends GameScene implements SceneMethods {
                 }
             }
         }
+    }
+
+    public void setGamePaused(boolean gamePaused) {
+        this.gamePaused = gamePaused;
+    }
+
+    public boolean isGamePaused() {
+        return gamePaused;
     }
 
     @Override

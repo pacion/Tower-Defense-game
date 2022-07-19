@@ -31,12 +31,13 @@ public class Tower {
             range += 10;
             cooldown -= 5;
         } else if(towerType == CANNON) {
-            damage += 5;
-            range += 12;
+            damage += 2;
+            range += 7;
             cooldown -= 15;
         } else if(towerType == WIZARD) {
+            damage = 1;
             range += 15;
-            cooldown -= 15;
+            cooldown -= 12;
         }
     }
 
