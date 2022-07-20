@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import enemies.Enemy;
 import handlers.EnemyHandler;
@@ -18,6 +19,8 @@ import objects.Tower;
 import ui.ActionBar;
 
 import static helperMethods.Constants.Tiles.GRASS_TILE;
+import static main.GameStates.GAME_OVER;
+import static main.GameStates.SetGameState;
 
 public class Playing extends GameScene implements SceneMethods {
     private int[][] lvl;
@@ -78,6 +81,13 @@ public class Playing extends GameScene implements SceneMethods {
                         enemyHandler.getEnemies().clear();
                         waveHandler.resetEnemyIndex();
                     }
+                } else {
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                        SetGameState(GAME_OVER);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    };
                 }
             }
 
