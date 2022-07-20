@@ -32,9 +32,9 @@ public class Game extends JFrame implements Runnable {
     private TileHandler tileHandler;
 
     public Game() {
-        initClasses();
         createDefaultLevel();
-
+        initClasses();
+        System.out.println("ss");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // TODO: change into middle of the screen good size, resolution
         setResizable(false);
@@ -49,8 +49,8 @@ public class Game extends JFrame implements Runnable {
         for (int i = 0; i < arr.length; i++)
             arr[i] = 0;
 
+        System.out.println("ss");
         LoadSave.CreateLevel("new_level", arr);
-
     }
 
     private void initClasses() {
@@ -121,7 +121,7 @@ public class Game extends JFrame implements Runnable {
             }
 
             if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
-                //System.out.println("FPS: " + frames + " | UPS: " + updates);
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
                 lastTimeCheck = System.currentTimeMillis();

@@ -50,8 +50,7 @@ public class EnemyHandler {
 			}
 			System.out.println();
 		}
-
-	}
+    }
 
 
     private void loadEffectImage() {

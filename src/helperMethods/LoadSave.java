@@ -92,6 +92,8 @@ public class LoadSave {
     public static void CreateLevel (String name, int[] idArr) {
         File newLevel = new File("./resources/" + name + ".txt");
 
+        System.out.println("ssokoko");
+
         if(newLevel.exists()) {
             System.out.println("lvl exists");
             return;

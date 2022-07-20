@@ -66,7 +66,7 @@ public class Playing extends GameScene implements SceneMethods {
 
             goldTick++;
 
-            if (goldTick % (60 * 4) == 0) {
+            if (goldTick % (60 * 3) == 0) {
                 actionBar.addGold(3);
             }
 

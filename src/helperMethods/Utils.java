@@ -16,10 +16,14 @@ public class Utils {
         int lastDirection = -1;
 
         while(!IsCurrentSameAsEnd(currentTile, end)) {
+        //while(IsCurrentSameAsEnd(currentTile, end)) {
             PathPoint previousTile = currentTile;
             currentTile = GetNextRoadTile(previousTile, lastDirection, lvlTypeArray);
-
+            //System.out.print(currentTile + " _ ");
             lastDirection = GetDirectionFromPreviousTileToCurrentTile(previousTile, currentTile);
+            //System.out.print(previousTile + " _ ");
+            //System.out.print(lastDirection + "\n");
+
             roadDirectionArray[previousTile.getY()][previousTile.getX()] = lastDirection;
         }
 
@@ -54,9 +58,11 @@ public class Utils {
 
         while(!IsTileRoad(testTile, lvlTypeArray)) {
             testDirection++;
-            testDirection %= 4;
+            testDirection %= 5;
 
             testTile = GetTileInDirection(previousTile, testDirection, lastDirection);
+            if(testTile != null)
+                System.out.println(testTile.getX() + " " + testTile.getY());
         }
 
         return testTile;
@@ -92,6 +98,9 @@ public class Utils {
     }
 
     private static boolean IsCurrentSameAsEnd(PathPoint currentTile, PathPoint end) {
+        System.out.print(currentTile.getX() + " " + currentTile.getY() + " _____ ");
+        System.out.print(end.getX() + " " + end.getY() + " \n ");
+
         if (currentTile.getX() == end.getX())
             if (currentTile.getY() == end.getY())
                 return true;
@@ -107,6 +116,14 @@ public class Utils {
                 int index = i * y + j;
                 newArr[i][j] = list.get(index);
             }
+        }
+
+        System.out.println("MOJE");System.out.println();System.out.println();
+        for (int j = 0; j < newArr.length; j++) {
+            for (int i = 0; i < newArr[j].length; i++) {
+                System.out.print(newArr[j][i] + "|");
+            }
+            System.out.println();
         }
 
         return newArr;

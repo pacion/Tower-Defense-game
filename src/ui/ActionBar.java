@@ -360,7 +360,7 @@ public class ActionBar extends Bar {
         hearts = 5;
         towerCostType = 0;
         showTowerCost = false;
-        gold = 120;
+        gold = 110;
         selectedTower = null;
         displayedTower = null;
     }

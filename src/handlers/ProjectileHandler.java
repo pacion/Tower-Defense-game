@@ -57,8 +57,20 @@ public class ProjectileHandler {
 
         float xPercentage = (float)Math.abs(xDistance) / sumOfDistances;
 
-        float xSpeed = xPercentage * GetSpeed(type);
-        float ySpeed = GetSpeed(type) - xSpeed;
+        float currentSpeed = GetSpeed(type);
+
+        if(tower.getTier() == 3) {
+            if(tower.getTowerType() == ARCHER) {
+                currentSpeed += 1.6f;
+            } else if(tower.getTowerType() == CANNON) {
+                currentSpeed += 1.4f;
+            } else if(tower.getTowerType() == WIZARD) {
+                currentSpeed += 2.4f;
+            }
+        }
+
+        float xSpeed = xPercentage * currentSpeed;
+        float ySpeed = currentSpeed - xSpeed;
 
         if(tower.getX() > enemy.getX())
             xSpeed *= -1;
