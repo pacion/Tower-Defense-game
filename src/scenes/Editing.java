@@ -114,7 +114,7 @@ public class Editing extends GameScene implements SceneMethods {
             } else {
                 int id = lvl[tileY][tileX];
 
-                if(game.getTileManager().getTile(id).getTileType() == ROAD_TILE) {
+                if(game.getTileHandler().getTile(id).getTileType() == ROAD_TILE) {
                     if(selectedTile.getId() == -1) {
                         start = new PathPoint(tileX, tileY);
                     } else if (selectedTile.getId() == -2) {

@@ -205,7 +205,7 @@ public class Playing extends GameScene implements SceneMethods {
 
     private boolean isTileGrass(int x, int y) {
         int id = lvl[y / 32][x / 32];
-        int tileType = game.getTileManager().getTile(id).getTileType();
+        int tileType = game.getTileHandler().getTile(id).getTileType();
 
         return tileType == GRASS_TILE;
     }
@@ -247,7 +247,7 @@ public class Playing extends GameScene implements SceneMethods {
             return 0;
 
         int id = lvl[y / 32][x / 32];
-        return game.getTileManager().getTile(id).getTileType();
+        return game.getTileHandler().getTile(id).getTileType();
     }
 
     public void keyPressed(KeyEvent e) {

@@ -105,6 +105,20 @@ public class TileHandler {
         return sprites;
     }
 
+    public int[][] getTypeArray() {
+        int[][] idArray = LoadSave.GetLevelData("new_level");
+        int[][] typeArray = new int[idArray.length][idArray[0].length];
+
+        for(int i = 0; i < idArray.length; i++) {
+            for(int j = 0; j < idArray[i].length; j++) {
+                int id = idArray[i][j];
+                typeArray[i][j] = tiles.get(id).getTileType();
+            }
+        }
+
+        return typeArray;
+    }
+
     private BufferedImage getSprite(int x, int y) {
         return atlas.getSubimage(x * 32, y * 32, 32, 32);
     }

@@ -203,7 +203,6 @@ public class ProjectileHandler {
     }
 
     public class Explosion {
-
         private Point2D.Float position;
         private int explosionTick, explosionIndex;
 

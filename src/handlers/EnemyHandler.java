@@ -2,6 +2,7 @@ package handlers;
 
 import enemies.*;
 import helperMethods.LoadSave;
+import helperMethods.Utils;
 import objects.PathPoint;
 import scenes.Playing;
 import static helperMethods.Constants.Enemies.*;
@@ -20,6 +21,7 @@ public class EnemyHandler {
     private PathPoint start, end;
     private int HPBarWidth = 20;
     private BufferedImage slowEffect;
+    private int[][] roadDirectionArray;
 
     public EnemyHandler(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
@@ -29,7 +31,28 @@ public class EnemyHandler {
 
         loadEffectImage();
         loadEnemyImages();
+        loadRoadDirectionArray();
+        System.out.println("elo");
+        tempMethod();
     }
+
+    private void loadRoadDirectionArray() {
+        roadDirectionArray = Utils.GetRoadDirectionArray(playing.getGame().getTileHandler().getTypeArray(), start, end);
+
+    }
+
+    private void tempMethod() {
+		int[][] arr = Utils.GetRoadDirectionArray(playing.getGame().getTileHandler().getTypeArray(), start, end);
+
+		for (int j = 0; j < arr.length; j++) {
+			for (int i = 0; i < arr[j].length; i++) {
+				System.out.print(arr[j][i] + "|");
+			}
+			System.out.println();
+		}
+
+	}
+
 
     private void loadEffectImage() {
         slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 9, 32 * 2, 32, 32);
@@ -51,22 +74,50 @@ public class EnemyHandler {
         }
     }
 
-    public void updateEnemyMove(Enemy enemy) {
-        if(enemy.getLastDirection() == -1) {
-            setNewDirectionAndMove(enemy);
+    private void updateEnemyMove(Enemy enemy) {
+        PathPoint currentTile = getEnemyTile(enemy);
+        int dir = roadDirectionArray[currentTile.getY()][currentTile.getX()];
+
+        enemy.move(GetSpeed(enemy.getEnemyType()), dir);
+
+        PathPoint newTile = getEnemyTile(enemy);
+
+        if (!isTilesTheSame(currentTile, newTile)) {
+            if (isTilesTheSame(newTile, end)) {
+                enemy.kill();
+                playing.removeOneHeart();
+                return;
+            }
+
+            int newDirection = roadDirectionArray[newTile.getY()][newTile.getX()];
+            if (newDirection != dir) {
+                enemy.setPositionFix(newTile.getX() * 32, newTile.getY() * 32);
+                enemy.setLastDirection(newDirection);
+            }
         }
 
-        int newX = (int)(enemy.getX() + getSpeedAndWidth(enemy.getLastDirection(), enemy.getEnemyType()));
-        int newY = (int)(enemy.getY() + getSpeedAndHeight(enemy.getLastDirection(), enemy.getEnemyType()));
+    }
 
-        if(getTileType(newX, newY) == ROAD_TILE) {
-            enemy.move(GetSpeed(enemy.getEnemyType()), enemy.getLastDirection());
-        } else if(isAtEndOfPath(enemy)) {
-            enemy.kill();
-            playing.removeOneHeart();
-        } else {
-            setNewDirectionAndMove(enemy);
+    private PathPoint getEnemyTile(Enemy enemy) {
+        switch (enemy.getLastDirection()) {
+            case LEFT:
+                return new PathPoint((int) ((enemy.getX() + 31) / 32), (int) (enemy.getY() / 32));
+            case UP:
+                return new PathPoint((int) (enemy.getX() / 32), (int) ((enemy.getY() + 31) / 32));
+            case RIGHT:
+            case DOWN:
+                return new PathPoint((int) (enemy.getX() / 32), (int) (enemy.getY() / 32));
         }
+
+        return new PathPoint((int) (enemy.getX() / 32), (int) (enemy.getY() / 32));
+    }
+
+    private boolean isTilesTheSame(PathPoint currentTile, PathPoint newTile) {
+        if (currentTile.getX() == newTile.getX())
+            if (currentTile.getY() == newTile.getY())
+                return true;
+
+        return false;
     }
 
     private void setNewDirectionAndMove(Enemy enemy) {

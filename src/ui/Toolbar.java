@@ -54,11 +54,11 @@ public class Toolbar extends Bar {
         buttonGrass = new MyButton("Grass", xStart, yStart, width, height, index++);
         buttonWater = new MyButton("Grass", xStart + xOffset, yStart, width, height, index++);
 
-        initMapButton(buttonRoadStraight, editing.getGame().getTileManager().getRoadsStraight(), xStart, yStart, xOffset, width, height, index++);
-        initMapButton(buttonRoadCorner, editing.getGame().getTileManager().getRoadsCorners(), xStart, yStart, xOffset, width, height, index++);
-        initMapButton(buttonWaterCorner, editing.getGame().getTileManager().getWaterCorners(), xStart, yStart, xOffset, width, height, index++);
-        initMapButton(buttonWaterBeaches, editing.getGame().getTileManager().getWaterBeaches(), xStart, yStart, xOffset, width, height, index++);
-        initMapButton(buttonWaterIslands, editing.getGame().getTileManager().getWaterIslands(), xStart, yStart, xOffset, width, height, index++);
+        initMapButton(buttonRoadStraight, editing.getGame().getTileHandler().getRoadsStraight(), xStart, yStart, xOffset, width, height, index++);
+        initMapButton(buttonRoadCorner, editing.getGame().getTileHandler().getRoadsCorners(), xStart, yStart, xOffset, width, height, index++);
+        initMapButton(buttonWaterCorner, editing.getGame().getTileHandler().getWaterCorners(), xStart, yStart, xOffset, width, height, index++);
+        initMapButton(buttonWaterBeaches, editing.getGame().getTileHandler().getWaterBeaches(), xStart, yStart, xOffset, width, height, index++);
+        initMapButton(buttonWaterIslands, editing.getGame().getTileHandler().getWaterIslands(), xStart, yStart, xOffset, width, height, index++);
 
         buttonPathStart = new MyButton("PathStart", xStart, yStart + xOffset, width, height, index++);
         buttonPathEnd = new MyButton("PathEnd", xStart + xOffset, yStart + xOffset, width, height, index++);
@@ -124,7 +124,7 @@ public class Toolbar extends Bar {
     }
 
     public BufferedImage getButtonImage(int id) {
-        return editing.getGame().getTileManager().getSprite(id);
+        return editing.getGame().getTileHandler().getSprite(id);
     }
 
     public void mouseClicked(int x, int y) {
@@ -135,11 +135,11 @@ public class Toolbar extends Bar {
         } else if(buttonSave.getBounds().contains(x, y)) {
             saveLevel();
         } else if (buttonWater.getBounds().contains(x, y)) {
-            selectedTile = editing.getGame().getTileManager().getTile(buttonWater.getId());
+            selectedTile = editing.getGame().getTileHandler().getTile(buttonWater.getId());
             editing.setSelectedTile(selectedTile);
             return;
         } else if (buttonGrass.getBounds().contains(x, y)) {
-            selectedTile = editing.getGame().getTileManager().getTile(buttonGrass.getId());
+            selectedTile = editing.getGame().getTileHandler().getTile(buttonGrass.getId());
             editing.setSelectedTile(selectedTile);
             return;
         } else if(buttonPathStart.getBounds().contains(x, y)) {

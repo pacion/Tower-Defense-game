@@ -28,15 +28,15 @@ public class GameScene {
     }
 
     protected boolean isAnimation(int spriteId) {
-        return getGame().getTileManager().isSpriteAnimation(spriteId);
+        return getGame().getTileHandler().isSpriteAnimation(spriteId);
     }
 
     protected BufferedImage getSprite(int spriteId, int animationIndex) {
-        return getGame().getTileManager().getAnimationSprite(spriteId, animationIndex);
+        return getGame().getTileHandler().getAnimationSprite(spriteId, animationIndex);
     }
 
     protected BufferedImage getSprite(int spriteId) {
-        return getGame().getTileManager().getSprite(spriteId);
+        return getGame().getTileHandler().getSprite(spriteId);
     }
 
 

@@ -149,4 +149,8 @@ public abstract class Enemy {
     public boolean isSlowed() {
         return slowTick < slowTickLimit;
     }
+
+    public void setLastDirection(int newDirection) {
+        this.lastDirection = newDirection;
+    }
 }

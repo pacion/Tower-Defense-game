@@ -38,6 +38,7 @@ public class Game extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // TODO: change into middle of the screen good size, resolution
         setResizable(false);
+        setTitle("Tower defense");
         add(gameScreen);
         pack();
         setVisible(true);
@@ -120,7 +121,7 @@ public class Game extends JFrame implements Runnable {
             }
 
             if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                //System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
                 lastTimeCheck = System.currentTimeMillis();
@@ -141,6 +142,7 @@ public class Game extends JFrame implements Runnable {
         return playing;
     }
 
+
     public Settings getSettings() {
         return settings;
     }
@@ -149,7 +151,7 @@ public class Game extends JFrame implements Runnable {
         return editing;
     }
 
-    public TileHandler getTileManager() {
+    public TileHandler getTileHandler() {
         return tileHandler;
     }
 
