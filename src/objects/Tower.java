@@ -27,16 +27,16 @@ public class Tower {
         this.tier++;
 
         if(towerType == ARCHER) {
-            damage += 2;
-            range += 10;
-            cooldown -= 5;
-        } else if(towerType == CANNON) {
-            damage += 2;
+            damage += 1;
             range += 7;
-            cooldown -= 15;
+            cooldown -= 4;
+        } else if(towerType == CANNON) {
+            damage += 1;
+            range += 5;
+            cooldown -= 10;
         } else if(towerType == WIZARD) {
             damage = 1;
-            range += 15;
+            range += 10;
             cooldown -= 12;
         }
     }

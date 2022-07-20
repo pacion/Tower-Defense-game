@@ -1,14 +1,13 @@
 package ui;
 
-import static main.GameStates.MENU;
-import static main.GameStates.SetGameState;
-
 import java.awt.*;
 import java.text.DecimalFormat;
 
 import helperMethods.Constants;
 import objects.Tower;
 import scenes.Playing;
+
+import static main.GameStates.*;
 
 public class ActionBar extends Bar {
     private Playing playing;
@@ -345,7 +344,7 @@ public class ActionBar extends Bar {
         hearts--;
 
         if(hearts <= 0) {
-            System.out.println("Game over.");
+            SetGameState(GAME_OVER);
         }
     }
 
@@ -355,5 +354,14 @@ public class ActionBar extends Bar {
 
     public void addGold(int getReward) {
         this.gold += getReward;
+    }
+
+    public void resetEverything() {
+        hearts = 5;
+        towerCostType = 0;
+        showTowerCost = false;
+        gold = 120;
+        selectedTower = null;
+        displayedTower = null;
     }
 }

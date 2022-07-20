@@ -102,4 +102,15 @@ public class WaveHandler {
     public boolean isWaveTimerStarted() {
         return waveStartTimer;
     }
+
+    public void reset() {
+        waves.clear();
+        createWaves();
+        enemyIndex = 0;
+        waveIndex = 0;
+        waveStartTimer = false;
+        waveStartTimerOver = false;
+        waveTick = 0;
+        enemySpawnTick = enemySpawnTickLimit;
+    }
 }

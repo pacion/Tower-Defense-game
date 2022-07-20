@@ -105,4 +105,9 @@ public class TowerHandler {
         assert matched != null;
         matched.upgradeTower();
     }
+
+    public void reset() {
+        towers.clear();
+        towerAmount = 0;
+    }
 }
