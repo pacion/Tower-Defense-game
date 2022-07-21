@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static main.GameStates.*;
 
-public class GameOver extends GameScene implements  SceneMethods {
+public class GameOver extends GameScene implements SceneMethods {
     private MyButton buttonReplay, buttonMenu;
 
     public GameOver(Game game) {
@@ -42,10 +42,10 @@ public class GameOver extends GameScene implements  SceneMethods {
 
     @Override
     public void mouseClicked(int x, int y) {
-        if(buttonMenu.getBounds().contains(x, y)) {
+        if (buttonMenu.getBounds().contains(x, y)) {
             resetAll();
             SetGameState(MENU);
-        } else if(buttonReplay.getBounds().contains(x, y)) {
+        } else if (buttonReplay.getBounds().contains(x, y)) {
             replayGame();
         }
     }
@@ -61,18 +61,18 @@ public class GameOver extends GameScene implements  SceneMethods {
         buttonMenu.setMouseOver(false);
         buttonReplay.setMouseOver(false);
 
-        if(buttonMenu.getBounds().contains(x, y)) {
+        if (buttonMenu.getBounds().contains(x, y)) {
             buttonMenu.setMouseOver(true);
-        } else if(buttonReplay.getBounds().contains(x, y)) {
+        } else if (buttonReplay.getBounds().contains(x, y)) {
             buttonReplay.setMouseOver(true);
         }
     }
 
     @Override
     public void mousePressed(int x, int y) {
-        if(buttonMenu.getBounds().contains(x, y)) {
+        if (buttonMenu.getBounds().contains(x, y)) {
             buttonMenu.setMousePressed(true);
-        } else if(buttonReplay.getBounds().contains(x, y)) {
+        } else if (buttonReplay.getBounds().contains(x, y)) {
             buttonReplay.setMousePressed(true);
         }
     }

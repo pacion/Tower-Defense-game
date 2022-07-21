@@ -1,17 +1,10 @@
 package main;
 
-import javax.swing.JFrame;
-
 import handlers.TileHandler;
 import helperMethods.LoadSave;
-import inputs.KeyboardListener;
-import inputs.MyMouseListener;
-import handlers.TileHandler;
-import objects.Tile;
 import scenes.*;
-import scenes.Menu;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
 
@@ -72,13 +65,13 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void updateGame() {
-        if(GameStates.gameState == GameStates.EDIT) {
+        if (GameStates.gameState == GameStates.EDIT) {
             editing.update();
-        } else if(GameStates.gameState == GameStates.MENU) {
+        } else if (GameStates.gameState == GameStates.MENU) {
 
-        } else if(GameStates.gameState == GameStates.PLAYING) {
+        } else if (GameStates.gameState == GameStates.PLAYING) {
             playing.update();
-        } else if(GameStates.gameState == GameStates.SETTINGS) {
+        } else if (GameStates.gameState == GameStates.SETTINGS) {
 
         }
     }

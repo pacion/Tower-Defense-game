@@ -25,14 +25,14 @@ public class WaveHandler {
     }
 
     public void update() {
-        if(enemySpawnTick < enemySpawnTickLimit) {
+        if (enemySpawnTick < enemySpawnTickLimit) {
             enemySpawnTick++;
         }
 
-        if(waveStartTimer) {
+        if (waveStartTimer) {
             waveTick++;
 
-            if(waveTick >= waveTickLimit) {
+            if (waveTick >= waveTickLimit) {
                 waveStartTimerOver = true;
             }
         }
@@ -52,25 +52,25 @@ public class WaveHandler {
 
     private void createWaves() {
         waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,BAT,BAT))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,BAT,BAT))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,ORC,ORC,ORC))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,BAT,BAT,BAT,BAT))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,BAT,BAT,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,WOLF,WOLF,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(BAT,BAT,BAT,BAT,WOLF,WOLF,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,ORC,ORC,KNIGHT,BAT,BAT,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(KNIGHT,BAT,BAT,BAT,BAT,WOLF, WOLF, WOLF, WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC,ORC,KNIGHT,KNIGHT,KNIGHT,KNIGHT,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF))));
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT, WOLF,WOLF,WOLF,WOLF,WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, BAT, BAT))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, ORC, ORC, BAT, BAT))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, ORC, ORC, ORC, ORC, ORC))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, BAT, BAT, BAT, BAT))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, BAT, BAT, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, ORC, ORC, WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(BAT, BAT, BAT, BAT, WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, ORC, ORC, KNIGHT, BAT, BAT, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(KNIGHT, BAT, BAT, BAT, BAT, WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(ORC, ORC, KNIGHT, KNIGHT, KNIGHT, KNIGHT, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, WOLF, WOLF, WOLF, WOLF, WOLF))));
         waves.add(new Wave(new ArrayList<>(Arrays.asList(
-                KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,
-                KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,
-                KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,KNIGHT, KNIGHT, KNIGHT,
-                WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,
-                WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,
-                WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF,WOLF
+                KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT,
+                KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT,
+                KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT, KNIGHT,
+                WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF,
+                WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF,
+                WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF, WOLF
         ))));
     }
 

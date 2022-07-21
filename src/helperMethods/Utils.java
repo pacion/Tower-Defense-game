@@ -5,7 +5,6 @@ import objects.PathPoint;
 import java.util.ArrayList;
 
 import static helperMethods.Constants.Direction.*;
-import static helperMethods.Constants.Direction.RIGHT;
 import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class Utils {
@@ -15,20 +14,12 @@ public class Utils {
         PathPoint currentTile = start;
         int lastDirection = -1;
 
-        while(!IsCurrentSameAsEnd(currentTile, end)) {
-        //while(IsCurrentSameAsEnd(currentTile, end)) {
+        while (!IsCurrentSameAsEnd(currentTile, end)) {
             PathPoint previousTile = currentTile;
             currentTile = GetNextRoadTile(previousTile, lastDirection, lvlTypeArray);
-            //System.out.print(currentTile + " _ ");
             lastDirection = GetDirectionFromPreviousTileToCurrentTile(previousTile, currentTile);
-            //System.out.print(previousTile + " _ ");
-            //System.out.print(lastDirection + "\n");
-
             roadDirectionArray[previousTile.getY()][previousTile.getX()] = lastDirection;
         }
-
-        System.out.println("ku");
-
 
         roadDirectionArray[end.getY()][end.getX()] = lastDirection;
 
@@ -36,14 +27,14 @@ public class Utils {
     }
 
     private static int GetDirectionFromPreviousTileToCurrentTile(PathPoint previousTile, PathPoint currentTile) {
-        if(previousTile.getX() == currentTile.getX()) {
-            if(previousTile.getY() > currentTile.getY()) {
+        if (previousTile.getX() == currentTile.getX()) {
+            if (previousTile.getY() > currentTile.getY()) {
                 return UP;
             } else {
                 return DOWN;
             }
         } else {
-            if(previousTile.getX() > currentTile.getX()) {
+            if (previousTile.getX() > currentTile.getX()) {
                 return LEFT;
             } else {
                 return RIGHT;
@@ -56,12 +47,12 @@ public class Utils {
 
         PathPoint testTile = GetTileInDirection(previousTile, testDirection, lastDirection);
 
-        while(!IsTileRoad(testTile, lvlTypeArray)) {
+        while (!IsTileRoad(testTile, lvlTypeArray)) {
             testDirection++;
             testDirection %= 5;
 
             testTile = GetTileInDirection(previousTile, testDirection, lastDirection);
-            if(testTile != null)
+            if (testTile != null)
                 System.out.println(testTile.getX() + " " + testTile.getY());
         }
 
@@ -69,28 +60,27 @@ public class Utils {
     }
 
     private static boolean IsTileRoad(PathPoint testTile, int[][] lvlTypeArray) {
-        if(testTile != null)
-            if(testTile.getY() >= 0 && testTile.getY() < lvlTypeArray.length)
-                if(testTile.getX() >= 0 && testTile.getX() < lvlTypeArray[0].length)
-                    if(lvlTypeArray[testTile.getY()][testTile.getX()] == ROAD_TILE)
-                        return true;
+        if (testTile != null)
+            if (testTile.getY() >= 0 && testTile.getY() < lvlTypeArray.length)
+                if (testTile.getX() >= 0 && testTile.getX() < lvlTypeArray[0].length)
+                    return lvlTypeArray[testTile.getY()][testTile.getX()] == ROAD_TILE;
 
         return false;
     }
 
     private static PathPoint GetTileInDirection(PathPoint previousTile, int testDirection, int lastDirection) {
-        switch(testDirection) {
+        switch (testDirection) {
             case LEFT:
-                if(lastDirection != RIGHT)
+                if (lastDirection != RIGHT)
                     return new PathPoint(previousTile.getX() - 1, previousTile.getY());
             case UP:
-                if(lastDirection != DOWN)
+                if (lastDirection != DOWN)
                     return new PathPoint(previousTile.getX(), previousTile.getY() - 1);
             case RIGHT:
-                if(lastDirection != LEFT)
+                if (lastDirection != LEFT)
                     return new PathPoint(previousTile.getX() + 1, previousTile.getY());
             case DOWN:
-                if(lastDirection != UP)
+                if (lastDirection != UP)
                     return new PathPoint(previousTile.getX(), previousTile.getY() + 1);
         }
 
@@ -98,27 +88,22 @@ public class Utils {
     }
 
     private static boolean IsCurrentSameAsEnd(PathPoint currentTile, PathPoint end) {
-        System.out.print(currentTile.getX() + " " + currentTile.getY() + " _____ ");
-        System.out.print(end.getX() + " " + end.getY() + " \n ");
-
         if (currentTile.getX() == end.getX())
-            if (currentTile.getY() == end.getY())
-                return true;
+            return currentTile.getY() == end.getY();
 
         return false;
     }
 
     public static int[][] ArrayListTo2DInt(ArrayList<Integer> list, int x, int y) {
-        int [][] newArr = new int[y][x];
+        int[][] newArr = new int[y][x];
 
-        for(int i = 0; i < newArr.length; ++i) {
-            for(int j = 0; j < newArr[i].length; ++j) {
+        for (int i = 0; i < newArr.length; ++i) {
+            for (int j = 0; j < newArr[i].length; ++j) {
                 int index = i * y + j;
                 newArr[i][j] = list.get(index);
             }
         }
 
-        System.out.println("MOJE");System.out.println();System.out.println();
         for (int j = 0; j < newArr.length; j++) {
             for (int i = 0; i < newArr[j].length; i++) {
                 System.out.print(newArr[j][i] + "|");
@@ -129,11 +114,11 @@ public class Utils {
         return newArr;
     }
 
-    public static int[] Flat2DArray (int[][] twoArr){
+    public static int[] Flat2DArray(int[][] twoArr) {
         int[] oneArr = new int[twoArr.length * twoArr[0].length];
 
-        for(int i = 0; i < twoArr.length; ++i) {
-            for(int j = 0; j < twoArr[i].length; ++j) {
+        for (int i = 0; i < twoArr.length; ++i) {
+            for (int j = 0; j < twoArr[i].length; ++j) {
                 int index = i * twoArr.length + j;
                 oneArr[index] = twoArr[i][j];
             }
@@ -146,7 +131,6 @@ public class Utils {
         float xDiff = Math.abs(x1 - x2);
         float yDiff = Math.abs(y1 - y2);
 
-        return (int)Math.hypot(xDiff, yDiff);
-
+        return (int) Math.hypot(xDiff, yDiff);
     }
 }

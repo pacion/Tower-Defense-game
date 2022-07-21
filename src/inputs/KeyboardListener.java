@@ -20,9 +20,9 @@ public class KeyboardListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(GameStates.gameState == GameStates.EDIT) {
+        if (GameStates.gameState == GameStates.EDIT) {
             game.getEditor().keyPressed(e);
-        } else if(GameStates.gameState == GameStates.PLAYING) {
+        } else if (GameStates.gameState == GameStates.PLAYING) {
             game.getPlaying().keyPressed(e);
         }
     }

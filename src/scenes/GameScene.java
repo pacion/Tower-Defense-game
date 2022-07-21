@@ -17,11 +17,11 @@ public class GameScene {
     protected void updateTick() {
         tickRate++;
 
-        if(tickRate >= ANIMATION_SPEED) {
+        if (tickRate >= ANIMATION_SPEED) {
             tickRate = 0;
             animationIndex++;
 
-            if(animationIndex >= 4) {
+            if (animationIndex >= 4) {
                 animationIndex = 0;
             }
         }

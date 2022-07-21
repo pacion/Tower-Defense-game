@@ -3,7 +3,7 @@ package enemies;
 import handlers.EnemyHandler;
 
 import java.awt.*;
-import java.awt.image.renderable.RenderableImage;
+
 import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Enemies.GetStartHealth;
 
@@ -26,20 +26,15 @@ public abstract class Enemy {
         this.id = id;
         this.enemyType = enemyType;
         this.enemyHandler = enemyHandler;
-        bounds = new Rectangle((int)x, (int)y, 32, 32);
+        bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDirection = -1;
         setStartHealth();
-    }
-
-    private void setStartHealth() {
-        health = GetStartHealth(enemyType);
-        maxHealth = health;
     }
 
     public void hurt(int damage) {
         this.health -= damage;
 
-        if(health <= 0) {
+        if (health <= 0) {
             alive = false;
             enemyHandler.rewardPlayer(enemyType);
         }
@@ -50,21 +45,21 @@ public abstract class Enemy {
     }
 
     public void move(float speed, float direction) {
-        lastDirection = (int)direction;
+        lastDirection = (int) direction;
 
         float powerOfSlow = 0.5f;
-        if(slowTick < slowTickLimit) {
+        if (slowTick < slowTickLimit) {
             slowTick++;
             speed *= powerOfSlow;
         }
 
-        if(direction == LEFT) {
+        if (direction == LEFT) {
             this.x -= speed;
-        } else if(direction == UP) {
+        } else if (direction == UP) {
             this.y -= speed;
-        } else if(direction == RIGHT) {
+        } else if (direction == RIGHT) {
             this.x += speed;
-        } else if(direction == DOWN) {
+        } else if (direction == DOWN) {
             this.y += speed;
         }
 
@@ -72,13 +67,21 @@ public abstract class Enemy {
     }
 
     private void updateHitBox() {
-        bounds.x = (int)x;
-        bounds.y = (int)y;
+        bounds.x = (int) x;
+        bounds.y = (int) y;
     }
 
     public void kill() {
         alive = false;
         health = 0;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public boolean isSlowed() {
+        return slowTick < slowTickLimit;
     }
 
     public float getHealthBarFloat() {
@@ -117,6 +120,11 @@ public abstract class Enemy {
         this.health = health;
     }
 
+    private void setStartHealth() {
+        health = GetStartHealth(enemyType);
+        maxHealth = health;
+    }
+
     public int getId() {
         return id;
     }
@@ -140,14 +148,6 @@ public abstract class Enemy {
 
     public int getLastDirection() {
         return lastDirection;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public boolean isSlowed() {
-        return slowTick < slowTickLimit;
     }
 
     public void setLastDirection(int newDirection) {

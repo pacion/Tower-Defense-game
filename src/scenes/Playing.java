@@ -1,11 +1,5 @@
 package scenes;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import enemies.Enemy;
 import handlers.EnemyHandler;
 import handlers.ProjectileHandler;
@@ -17,6 +11,11 @@ import main.Game;
 import objects.PathPoint;
 import objects.Tower;
 import ui.ActionBar;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static helperMethods.Constants.Tiles.GRASS_TILE;
 import static main.GameStates.GAME_OVER;
@@ -64,7 +63,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-        if(!gamePaused) {
+        if (!gamePaused) {
             updateTick();
 
             goldTick++;
@@ -87,7 +86,7 @@ public class Playing extends GameScene implements SceneMethods {
                         SetGameState(GAME_OVER);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
-                    };
+                    }
                 }
             }
 
@@ -111,12 +110,12 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private boolean isAllEnemiesDead() {
-        if(waveHandler.isThereMoreEnemiesInWave()) {
+        if (waveHandler.isThereMoreEnemiesInWave()) {
             return false;
         }
 
-        for(Enemy enemy : enemyHandler.getEnemies()) {
-            if(enemy.isAlive()) {
+        for (Enemy enemy : enemyHandler.getEnemies()) {
+            if (enemy.isAlive()) {
                 return false;
             }
         }
@@ -124,10 +123,8 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private boolean isTimeForNewEnemy() {
-        if(waveHandler.isTimeForNewEnemy()) {
-            if(waveHandler.isThereMoreEnemiesInWave()) {
-                return true;
-            }
+        if (waveHandler.isTimeForNewEnemy()) {
+            return waveHandler.isThereMoreEnemiesInWave();
         }
 
         return false;
@@ -157,7 +154,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private void drawSelectedTower(Graphics graphics) {
-        if(selectedTower != null) {
+        if (selectedTower != null) {
             graphics.drawImage(towerHandler.getTowerImages()[selectedTower.getTowerType()], mouseX, mouseY, null);
         }
     }
@@ -167,7 +164,7 @@ public class Playing extends GameScene implements SceneMethods {
             for (int x = 0; x < lvl[y].length; x++) {
                 int id = lvl[y][x];
 
-                if(isAnimation(id)) {
+                if (isAnimation(id)) {
                     graphics.drawImage(getSprite(id, animationIndex), x * 32, y * 32, null);
                 } else {
                     graphics.drawImage(getSprite(id), x * 32, y * 32, null);
@@ -189,9 +186,9 @@ public class Playing extends GameScene implements SceneMethods {
         if (y >= 640) {
             actionBar.mouseClicked(x, y);
         } else {
-            if(selectedTower != null) {
-                if(isTileGrass(mouseX, mouseY)) {
-                    if(getTowerAt(mouseX, mouseY) == null) {
+            if (selectedTower != null) {
+                if (isTileGrass(mouseX, mouseY)) {
+                    if (getTowerAt(mouseX, mouseY) == null) {
                         towerHandler.addTower(selectedTower, mouseX, mouseY);
                         removeGold(selectedTower.getTowerType());
 
@@ -261,7 +258,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
         }
     }

@@ -3,16 +3,11 @@ package scenes;
 import main.Game;
 import ui.MyButton;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 import static main.GameStates.*;
 
-public class Menu extends GameScene implements SceneMethods{
+public class Menu extends GameScene implements SceneMethods {
     private MyButton buttonPlaying, buttonEdit, buttonSettings, buttonQuit;
 
     public Menu(Game game) {
@@ -50,7 +45,7 @@ public class Menu extends GameScene implements SceneMethods{
     public void mouseClicked(int x, int y) {
         if (buttonPlaying.getBounds().contains(x, y)) {
             SetGameState(PLAYING);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             SetGameState(EDIT);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             SetGameState(SETTINGS);
@@ -68,7 +63,7 @@ public class Menu extends GameScene implements SceneMethods{
 
         if (buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setMouseOver(true);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             buttonEdit.setMouseOver(true);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setMouseOver(true);
@@ -81,7 +76,7 @@ public class Menu extends GameScene implements SceneMethods{
     public void mousePressed(int x, int y) {
         if (buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setMousePressed(true);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             buttonEdit.setMousePressed(true);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setMousePressed(true);

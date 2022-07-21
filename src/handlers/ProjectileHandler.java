@@ -1,7 +1,6 @@
 package handlers;
 
 import enemies.Enemy;
-import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Projectile;
 import objects.Tower;
@@ -33,7 +32,7 @@ public class ProjectileHandler {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
         projectileImages = new BufferedImage[3];
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             projectileImages[i] = atlas.getSubimage((7 + i) * 32, 32, 32, 32);
         }
 
@@ -43,7 +42,7 @@ public class ProjectileHandler {
     private void importExplosions(BufferedImage atlas) {
         explosionImages = new BufferedImage[7];
 
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             explosionImages[i] = atlas.getSubimage(i * 32, 32 * 2, 32, 32);
         }
     }
@@ -51,20 +50,20 @@ public class ProjectileHandler {
     public void newProjectile(Tower tower, Enemy enemy) {
         int type = getProjectileType(tower);
 
-        int xDistance = (int)(tower.getX() - enemy.getX());
-        int yDistance = (int)(tower.getY() - enemy.getY());
+        int xDistance = (int) (tower.getX() - enemy.getX());
+        int yDistance = (int) (tower.getY() - enemy.getY());
         int sumOfDistances = Math.abs(xDistance) + Math.abs(yDistance);
 
-        float xPercentage = (float)Math.abs(xDistance) / sumOfDistances;
+        float xPercentage = (float) Math.abs(xDistance) / sumOfDistances;
 
         float currentSpeed = GetSpeed(type);
 
-        if(tower.getTier() == 3) {
-            if(tower.getTowerType() == ARCHER) {
+        if (tower.getTier() == 3) {
+            if (tower.getTowerType() == ARCHER) {
                 currentSpeed += 1.6f;
-            } else if(tower.getTowerType() == CANNON) {
+            } else if (tower.getTowerType() == CANNON) {
                 currentSpeed += 1.4f;
-            } else if(tower.getTowerType() == WIZARD) {
+            } else if (tower.getTowerType() == WIZARD) {
                 currentSpeed += 2.4f;
             }
         }
@@ -72,10 +71,10 @@ public class ProjectileHandler {
         float xSpeed = xPercentage * currentSpeed;
         float ySpeed = currentSpeed - xSpeed;
 
-        if(tower.getX() > enemy.getX())
+        if (tower.getX() > enemy.getX())
             xSpeed *= -1;
 
-        if(tower.getY() > enemy.getY())
+        if (tower.getY() > enemy.getY())
             ySpeed *= -1;
 
         float rotation = 0;
@@ -102,18 +101,18 @@ public class ProjectileHandler {
     }
 
     public void update() {
-        for(Projectile projectile : projectiles) {
-            if(projectile.isActive()) {
+        for (Projectile projectile : projectiles) {
+            if (projectile.isActive()) {
                 projectile.move();
 
-                if(isProjectileHittingEnemy(projectile)) {
+                if (isProjectileHittingEnemy(projectile)) {
                     projectile.setActive(false);
 
-                    if(projectile.getProjectileType() == BOMB) {
+                    if (projectile.getProjectileType() == BOMB) {
                         explosions.add(new Explosion(projectile.getPosition()));
                         explodeOnEnemiesImpact(projectile);
                     }
-                } else if(isProjectileOutsideBounds(projectile)) {
+                } else if (isProjectileOutsideBounds(projectile)) {
                     projectile.setActive(false);
                 }
             }
@@ -133,7 +132,7 @@ public class ProjectileHandler {
                 float yDistance = Math.abs(projectile.getPosition().y - enemy.getY());
                 float radiusOfExplosion = 40.0f;
 
-                float realDistance = (float)Math.hypot(xDistance, yDistance);
+                float realDistance = (float) Math.hypot(xDistance, yDistance);
 
                 if (realDistance <= radiusOfExplosion)
                     enemy.hurt(projectile.getDamage());
@@ -144,7 +143,7 @@ public class ProjectileHandler {
     }
 
     private boolean isProjectileHittingEnemy(Projectile projectile) {
-        for(Enemy enemy : playing.getEnemyHandler().getEnemies()) {
+        for (Enemy enemy : playing.getEnemyHandler().getEnemies()) {
             if (enemy.isAlive())
                 if (enemy.getBounds().contains(projectile.getPosition())) {
                     enemy.hurt(projectile.getDamage());
@@ -161,11 +160,10 @@ public class ProjectileHandler {
     }
 
     private boolean isProjectileOutsideBounds(Projectile projectile) {
-        if(projectile.getPosition().x >= 0)
-            if(projectile.getPosition().x <= 640)
-                if(projectile.getPosition().y >= 0)
-                    if(projectile.getPosition().y <= 640)
-                        return false;
+        if (projectile.getPosition().x >= 0)
+            if (projectile.getPosition().x <= 640)
+                if (projectile.getPosition().y >= 0)
+                    return !(projectile.getPosition().y <= 640);
 
         return true;
     }
@@ -173,9 +171,9 @@ public class ProjectileHandler {
     public void draw(Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
 
-        for(Projectile projectile : projectiles) {
-            if(projectile.isActive()) {
-                if(projectile.getProjectileType() == ARROW) {
+        for (Projectile projectile : projectiles) {
+            if (projectile.isActive()) {
+                if (projectile.getProjectileType() == ARROW) {
                     graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
                     graphics2D.rotate(Math.toRadians(projectile.getRotation()));
                     graphics2D.drawImage(projectileImages[projectile.getProjectileType()], -16, -16, null);
@@ -183,8 +181,8 @@ public class ProjectileHandler {
                     graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
                 } else {
                     graphics2D.drawImage(projectileImages[projectile.getProjectileType()],
-                            (int)projectile.getPosition().x - 16,
-                            (int)projectile.getPosition().y - 16, null);
+                            (int) projectile.getPosition().x - 16,
+                            (int) projectile.getPosition().y - 16, null);
                 }
             }
         }
@@ -203,11 +201,11 @@ public class ProjectileHandler {
     }
 
     private int getProjectileType(Tower tower) {
-        if(tower.getTowerType() == ARCHER) {
+        if (tower.getTowerType() == ARCHER) {
             return ARROW;
-        } else if(tower.getTowerType() == CANNON) {
+        } else if (tower.getTowerType() == CANNON) {
             return BOMB;
-        } else if(tower.getTowerType() == WIZARD) {
+        } else if (tower.getTowerType() == WIZARD) {
             return ICE;
         }
 
@@ -215,7 +213,7 @@ public class ProjectileHandler {
     }
 
     public class Explosion {
-        private Point2D.Float position;
+        private final Point2D.Float position;
         private int explosionTick, explosionIndex;
 
         public Explosion(Point2D.Float position) {

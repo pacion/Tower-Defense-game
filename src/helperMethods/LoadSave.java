@@ -35,11 +35,10 @@ public class LoadSave {
     public static void SaveLevel(String name, int[][] idArr, PathPoint start, PathPoint end) {
         File lvlFile = new File("./resources/" + name + ".txt");
 
-        if(lvlFile.exists()) {
+        if (lvlFile.exists()) {
             WriteToFile(lvlFile, Utils.Flat2DArray(idArr), start, end);
         } else {
-            // do more
-            return;
+            System.out.println("File doesn't exists: " + name);
         }
     }
 
@@ -49,12 +48,12 @@ public class LoadSave {
         try {
             Scanner scanner = new Scanner(file);
 
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 list.add(Integer.parseInt(scanner.nextLine()));
             }
 
             scanner.close();
-        } catch (FileNotFoundException e)  {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -89,14 +88,11 @@ public class LoadSave {
         }
     }
 
-    public static void CreateLevel (String name, int[] idArr) {
+    public static void CreateLevel(String name, int[] idArr) {
         File newLevel = new File("./resources/" + name + ".txt");
 
-        System.out.println("ssokoko");
-
-        if(newLevel.exists()) {
+        if (newLevel.exists()) {
             System.out.println("lvl exists");
-            return;
         } else {
             try {
                 newLevel.createNewFile();
@@ -112,7 +108,7 @@ public class LoadSave {
         try {
             PrintWriter printWriter = new PrintWriter(f);
 
-            for(Integer id: idArr)
+            for (Integer id : idArr)
                 printWriter.println(id);
 
             printWriter.println(start.getX());
