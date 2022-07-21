@@ -3,16 +3,11 @@ package scenes;
 import main.Game;
 import ui.MyButton;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 import static main.GameStates.*;
 
-public class Menu extends GameScene implements SceneMethods{
+public class Menu extends GameScene implements SceneMethods {
     private MyButton buttonPlaying, buttonEdit, buttonSettings, buttonQuit;
 
     public Menu(Game game) {
@@ -22,16 +17,16 @@ public class Menu extends GameScene implements SceneMethods{
     }
 
     private void initButtons() {
-        int w = 150;
-        int h = w / 4;
-        int x = 640 / 2 - w / 2;
+        int width = 150;
+        int height = width / 4;
+        int x = 640 / 2 - width / 2;
         int y = 150;
         int yOffset = 100;
 
-        buttonPlaying = new MyButton("Play", x, y, w, h);
-        buttonEdit = new MyButton("Edit", x, y + yOffset, w, h);
-        buttonSettings = new MyButton("Settings", x, y + yOffset * 2, w, h);
-        buttonQuit = new MyButton("Quit", x, y + yOffset * 3, w, h);
+        buttonPlaying = new MyButton("Play", x, y, width, height);
+        buttonEdit = new MyButton("Edit", x, y + yOffset, width, height);
+        buttonSettings = new MyButton("Settings", x, y + yOffset * 2, width, height);
+        buttonQuit = new MyButton("Quit", x, y + yOffset * 3, width, height);
     }
 
     @Override
@@ -50,7 +45,7 @@ public class Menu extends GameScene implements SceneMethods{
     public void mouseClicked(int x, int y) {
         if (buttonPlaying.getBounds().contains(x, y)) {
             SetGameState(PLAYING);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             SetGameState(EDIT);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             SetGameState(SETTINGS);
@@ -62,13 +57,13 @@ public class Menu extends GameScene implements SceneMethods{
     @Override
     public void mouseMoved(int x, int y) {
         buttonPlaying.setMouseOver(false);
-        buttonPlaying.setMouseOver(false);
+        buttonEdit.setMouseOver(false);
         buttonSettings.setMouseOver(false);
         buttonQuit.setMouseOver(false);
 
         if (buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setMouseOver(true);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             buttonEdit.setMouseOver(true);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setMouseOver(true);
@@ -81,7 +76,7 @@ public class Menu extends GameScene implements SceneMethods{
     public void mousePressed(int x, int y) {
         if (buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setMousePressed(true);
-        } else if(buttonEdit.getBounds().contains(x, y)) {
+        } else if (buttonEdit.getBounds().contains(x, y)) {
             buttonEdit.setMousePressed(true);
         } else if (buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setMousePressed(true);

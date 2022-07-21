@@ -17,26 +17,26 @@ public class GameScene {
     protected void updateTick() {
         tickRate++;
 
-        if(tickRate >= ANIMATION_SPEED) {
+        if (tickRate >= ANIMATION_SPEED) {
             tickRate = 0;
             animationIndex++;
 
-            if(animationIndex >= 4) {
+            if (animationIndex >= 4) {
                 animationIndex = 0;
             }
         }
     }
 
     protected boolean isAnimation(int spriteId) {
-        return getGame().getTileManager().isSpriteAnimation(spriteId);
+        return getGame().getTileHandler().isSpriteAnimation(spriteId);
     }
 
     protected BufferedImage getSprite(int spriteId, int animationIndex) {
-        return getGame().getTileManager().getAnimationSprite(spriteId, animationIndex);
+        return getGame().getTileHandler().getAnimationSprite(spriteId, animationIndex);
     }
 
     protected BufferedImage getSprite(int spriteId) {
-        return getGame().getTileManager().getSprite(spriteId);
+        return getGame().getTileHandler().getSprite(spriteId);
     }
 
 

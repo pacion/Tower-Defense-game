@@ -4,9 +4,10 @@ import static helperMethods.Constants.Towers.*;
 
 public class Tower {
     private int x, y, id, towerType;
-    private float  range, cooldown;
+    private float range, cooldown;
     private int cooldownTick;
     private int damage;
+    private int tier;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
@@ -20,6 +21,24 @@ public class Tower {
 
     public void update() {
         cooldownTick++;
+    }
+
+    public void upgradeTower() {
+        this.tier++;
+
+        if (towerType == ARCHER) {
+            damage += 1;
+            range += 10;
+            cooldown -= 3;
+        } else if (towerType == CANNON) {
+            damage += 10;
+            range += 4;
+            cooldown -= 4;
+        } else if (towerType == WIZARD) {
+            damage = 1;
+            range += 10;
+            cooldown -= 13;
+        }
     }
 
     public boolean isCooldownOver() {
@@ -48,6 +67,10 @@ public class Tower {
 
     public float getCooldown() {
         return cooldown;
+    }
+
+    public int getTier() {
+        return tier;
     }
 
     public void setCooldown(float cooldown) {

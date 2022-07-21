@@ -1,15 +1,14 @@
 package scenes;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import helperMethods.LoadSave;
 import main.Game;
 import objects.PathPoint;
 import objects.Tile;
 import ui.Toolbar;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import static helperMethods.Constants.Tiles.ROAD_TILE;
 
@@ -22,7 +21,7 @@ public class Editing extends GameScene implements SceneMethods {
     private boolean drawSelect;
     private PathPoint start, end;
 
-    private Toolbar toolbar;
+    private final Toolbar toolbar;
 
     public Editing(Game game) {
         super(game);
@@ -33,8 +32,8 @@ public class Editing extends GameScene implements SceneMethods {
     }
 
     private void loadDefaultLevel() {
-        lvl = LoadSave.GetLevelData("new_level");
-        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
+        lvl = LoadSave.GetLevelData();
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints();
         start = points.get(0);
         end = points.get(1);
     }
@@ -50,11 +49,11 @@ public class Editing extends GameScene implements SceneMethods {
     }
 
     private void drawPathPoints(Graphics graphics) {
-        if(start != null) {
+        if (start != null) {
             graphics.drawImage(toolbar.getStartPathImage(), start.getX() * 32, start.getY() * 32, 32, 32, null);
         }
 
-        if(end != null) {
+        if (end != null) {
             graphics.drawImage(toolbar.getEndPathImage(), end.getX() * 32, end.getY() * 32, 32, 32, null);
 
         }
@@ -65,7 +64,7 @@ public class Editing extends GameScene implements SceneMethods {
             for (int x = 0; x < lvl[y].length; x++) {
                 int id = lvl[y][x];
 
-                if(isAnimation(id)) {
+                if (isAnimation(id)) {
                     graphics.drawImage(getSprite(id, animationIndex), x * 32, y * 32, null);
                 } else {
                     graphics.drawImage(getSprite(id), x * 32, y * 32, null);
@@ -85,7 +84,7 @@ public class Editing extends GameScene implements SceneMethods {
     }
 
     public void saveLevel() {
-        LoadSave.SaveLevel("new_level", lvl, start, end);
+        LoadSave.SaveLevel(lvl, start, end);
         getGame().getPlaying().setLevel(lvl);
     }
 
@@ -99,7 +98,7 @@ public class Editing extends GameScene implements SceneMethods {
             int tileX = x / 32;
             int tileY = y / 32;
 
-            if(selectedTile.getId() >= 0) {
+            if (selectedTile.getId() >= 0) {
                 if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId())
                     return;
 
@@ -114,8 +113,8 @@ public class Editing extends GameScene implements SceneMethods {
             } else {
                 int id = lvl[tileY][tileX];
 
-                if(game.getTileManager().getTile(id).getTileType() == ROAD_TILE) {
-                    if(selectedTile.getId() == -1) {
+                if (game.getTileHandler().getTile(id).getTileType() == ROAD_TILE) {
+                    if (selectedTile.getId() == -1) {
                         start = new PathPoint(tileX, tileY);
                     } else if (selectedTile.getId() == -2) {
                         end = new PathPoint(tileX, tileY);
@@ -150,7 +149,7 @@ public class Editing extends GameScene implements SceneMethods {
 
     @Override
     public void mousePressed(int x, int y) {
-        if(y >= 640) {
+        if (y >= 640) {
             toolbar.mousePressed(x, y);
         }
     }
@@ -171,7 +170,7 @@ public class Editing extends GameScene implements SceneMethods {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_R) {
+        if (e.getKeyCode() == KeyEvent.VK_R) {
             toolbar.rotateSprite();
         }
     }

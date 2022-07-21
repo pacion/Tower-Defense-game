@@ -1,19 +1,10 @@
 package main;
 
-import javax.swing.JFrame;
-
 import handlers.TileHandler;
 import helperMethods.LoadSave;
-import inputs.KeyboardListener;
-import inputs.MyMouseListener;
-import handlers.TileHandler;
-import objects.Tile;
-import scenes.Editing;
-import scenes.Menu;
-import scenes.Playing;
-import scenes.Settings;
+import scenes.*;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
 
@@ -29,16 +20,18 @@ public class Game extends JFrame implements Runnable {
     private Playing playing;
     private Settings settings;
     private Editing editing;
+    private GameOver gameOver;
 
     private TileHandler tileHandler;
 
     public Game() {
-        initClasses();
+        LoadSave.CreateFolder();
         createDefaultLevel();
-
+        initClasses();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // TODO: change into middle of the screen good size, resolution
         setResizable(false);
+        setTitle("Tower defense");
         add(gameScreen);
         pack();
         setVisible(true);
@@ -49,8 +42,7 @@ public class Game extends JFrame implements Runnable {
         for (int i = 0; i < arr.length; i++)
             arr[i] = 0;
 
-        LoadSave.CreateLevel("new_level", arr);
-
+        LoadSave.CreateLevel(arr);
     }
 
     private void initClasses() {
@@ -61,7 +53,7 @@ public class Game extends JFrame implements Runnable {
         playing = new Playing(this);
         settings = new Settings(this);
         editing = new Editing(this);
-
+        gameOver = new GameOver(this);
     }
 
     private void start() {
@@ -72,13 +64,13 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void updateGame() {
-        if(GameStates.gameState == GameStates.EDIT) {
+        if (GameStates.gameState == GameStates.EDIT) {
             editing.update();
-        } else if(GameStates.gameState == GameStates.MENU) {
+        } else if (GameStates.gameState == GameStates.MENU) {
 
-        } else if(GameStates.gameState == GameStates.PLAYING) {
+        } else if (GameStates.gameState == GameStates.PLAYING) {
             playing.update();
-        } else if(GameStates.gameState == GameStates.SETTINGS) {
+        } else if (GameStates.gameState == GameStates.SETTINGS) {
 
         }
     }
@@ -121,14 +113,13 @@ public class Game extends JFrame implements Runnable {
             }
 
             if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                // ---------------------- UNCOMMENT TO SEE FPS, UPS CHANGES ----------------------
+                //System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
                 lastTimeCheck = System.currentTimeMillis();
             }
-
         }
-
     }
 
     // Getters and setters
@@ -144,6 +135,7 @@ public class Game extends JFrame implements Runnable {
         return playing;
     }
 
+
     public Settings getSettings() {
         return settings;
     }
@@ -152,8 +144,12 @@ public class Game extends JFrame implements Runnable {
         return editing;
     }
 
-    public TileHandler getTileManager() {
+    public TileHandler getTileHandler() {
         return tileHandler;
+    }
+
+    public GameOver getGameOver() {
+        return gameOver;
     }
 
 }

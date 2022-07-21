@@ -27,7 +27,7 @@ public class ImageFix {
 
         Graphics2D graphics2D = newImage.createGraphics();
 
-        for(BufferedImage image : images) {
+        for (BufferedImage image : images) {
             graphics2D.drawImage(image, 0, 0, null);
         }
 
@@ -44,14 +44,14 @@ public class ImageFix {
 
         Graphics2D graphics2D = newImage.createGraphics();
 
-        for(int i = 0; i < images.length; ++i) {
-            if(indexOfImageToRotate == i) {
+        for (int i = 0; i < images.length; ++i) {
+            if (indexOfImageToRotate == i) {
                 graphics2D.rotate(Math.toRadians(angle), width / 2.f, height / 2.f);
             }
 
             graphics2D.drawImage(images[i], 0, 0, null);
 
-            if(indexOfImageToRotate == i) {
+            if (indexOfImageToRotate == i) {
                 graphics2D.rotate(Math.toRadians(-angle), width / 2.f, height / 2.f);
             }
         }
@@ -65,9 +65,9 @@ public class ImageFix {
         int width = images[0].getWidth();
         int height = images[0].getHeight();
 
-        BufferedImage[] arr = new  BufferedImage[images.length]; // VLA because Tile constructor takes an array
+        BufferedImage[] arr = new BufferedImage[images.length]; // VLA because Tile constructor takes an array
 
-        for(int i = 0; i < images.length; i++) {
+        for (int i = 0; i < images.length; i++) {
             BufferedImage newImage = new BufferedImage(width, height, images[0].getType());
             Graphics2D graphics2D = newImage.createGraphics();
 

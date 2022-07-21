@@ -46,13 +46,12 @@ public class MyButton {
     }
 
     private void drawBody(Graphics graphics) {
-        if(mouseOver) {
-            graphics.setColor(Color.GRAY);
+        if (mouseOver) {
+            graphics.setColor(new Color(193, 193, 193));
         } else {
             graphics.setColor(Color.WHITE);
         }
 
-        graphics.setColor(Color.WHITE);
         graphics.fillRect(x, y, width, height);
     }
 
@@ -60,7 +59,7 @@ public class MyButton {
         graphics.setColor(Color.BLACK);
         graphics.drawRect(x, y, width, height);
 
-        if(mousePressed) {
+        if (mousePressed) {
             graphics.drawRect(x + 1, y + 1, width - 2, height - 2);
             graphics.drawRect(x + 2, y + 2, width - 4, height - 4);
         }
@@ -84,6 +83,10 @@ public class MyButton {
 
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public boolean isMouseOver() {

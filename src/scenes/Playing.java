@@ -1,21 +1,25 @@
 package scenes;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import enemies.Enemy;
 import handlers.EnemyHandler;
 import handlers.ProjectileHandler;
 import handlers.TowerHandler;
+import handlers.WaveHandler;
+import helperMethods.Constants;
 import helperMethods.LoadSave;
 import main.Game;
 import objects.PathPoint;
 import objects.Tower;
 import ui.ActionBar;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import static helperMethods.Constants.Tiles.GRASS_TILE;
+import static main.GameStates.GAME_OVER;
+import static main.GameStates.SetGameState;
 
 public class Playing extends GameScene implements SceneMethods {
     private int[][] lvl;
@@ -23,9 +27,12 @@ public class Playing extends GameScene implements SceneMethods {
     private int mouseX, mouseY;
     private EnemyHandler enemyHandler;
     private TowerHandler towerHandler;
+    private WaveHandler waveHandler;
     private Tower selectedTower;
     private PathPoint start, end;
     private ProjectileHandler projectileHandler;
+    private int goldTick = 0;
+    private boolean gamePaused;
 
     public Playing(Game game) {
         super(game);
@@ -37,6 +44,7 @@ public class Playing extends GameScene implements SceneMethods {
         enemyHandler = new EnemyHandler(this, start, end);
         towerHandler = new TowerHandler(this);
         projectileHandler = new ProjectileHandler(this);
+        waveHandler = new WaveHandler(this);
     }
 
     public void setSelectedTower(Tower selectedTower) {
@@ -44,8 +52,8 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private void loadDefaultLevel() {
-        lvl = LoadSave.GetLevelData("new_level");
-        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
+        lvl = LoadSave.GetLevelData();
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints();
         start = points.get(0);
         end = points.get(1);
     }
@@ -55,11 +63,77 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-        updateTick();
-        enemyHandler.update();
-        towerHandler.update();
-        projectileHandler.update();
+        if (!gamePaused) {
+            updateTick();
+
+            goldTick++;
+
+            if (goldTick % (60 * 3) == 0) {
+                actionBar.addGold(3);
+            }
+
+            if (isAllEnemiesDead()) {
+                if (isThereMoreWaves()) {
+                    waveHandler.startWaveTimer();
+                    if (isWaveTimerOver()) {
+                        waveHandler.increaseWaveIndex();
+                        enemyHandler.getEnemies().clear();
+                        waveHandler.resetEnemyIndex();
+                    }
+                } else {
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                        SetGameState(GAME_OVER);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            if (isTimeForNewEnemy()) {
+                spawnEnemy();
+            }
+
+            enemyHandler.update();
+            towerHandler.update();
+            projectileHandler.update();
+            waveHandler.update();
+        }
     }
+
+    private boolean isWaveTimerOver() {
+        return waveHandler.isWaveTimerOver();
+    }
+
+    private boolean isThereMoreWaves() {
+        return waveHandler.isThereMoreWaves();
+    }
+
+    private boolean isAllEnemiesDead() {
+        if (waveHandler.isThereMoreEnemiesInWave()) {
+            return false;
+        }
+
+        for (Enemy enemy : enemyHandler.getEnemies()) {
+            if (enemy.isAlive()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isTimeForNewEnemy() {
+        if (waveHandler.isTimeForNewEnemy()) {
+            return waveHandler.isThereMoreEnemiesInWave();
+        }
+
+        return false;
+    }
+
+    private void spawnEnemy() {
+        enemyHandler.spawnEnemy(waveHandler.getNextEnemy());
+    }
+
 
     @Override
     public void render(Graphics graphics) {
@@ -80,7 +154,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private void drawSelectedTower(Graphics graphics) {
-        if(selectedTower != null) {
+        if (selectedTower != null) {
             graphics.drawImage(towerHandler.getTowerImages()[selectedTower.getTowerType()], mouseX, mouseY, null);
         }
     }
@@ -90,7 +164,7 @@ public class Playing extends GameScene implements SceneMethods {
             for (int x = 0; x < lvl[y].length; x++) {
                 int id = lvl[y][x];
 
-                if(isAnimation(id)) {
+                if (isAnimation(id)) {
                     graphics.drawImage(getSprite(id, animationIndex), x * 32, y * 32, null);
                 } else {
                     graphics.drawImage(getSprite(id), x * 32, y * 32, null);
@@ -99,15 +173,25 @@ public class Playing extends GameScene implements SceneMethods {
         }
     }
 
+    public void setGamePaused(boolean gamePaused) {
+        this.gamePaused = gamePaused;
+    }
+
+    public boolean isGamePaused() {
+        return gamePaused;
+    }
+
     @Override
     public void mouseClicked(int x, int y) {
         if (y >= 640) {
             actionBar.mouseClicked(x, y);
         } else {
-            if(selectedTower != null) {
-                if(isTileGrass(mouseX, mouseY)) {
-                    if(getTowerAt(mouseX, mouseY) == null) {
+            if (selectedTower != null) {
+                if (isTileGrass(mouseX, mouseY)) {
+                    if (getTowerAt(mouseX, mouseY) == null) {
                         towerHandler.addTower(selectedTower, mouseX, mouseY);
+                        removeGold(selectedTower.getTowerType());
+
                         selectedTower = null;
                     }
                 }
@@ -118,13 +202,17 @@ public class Playing extends GameScene implements SceneMethods {
         }
     }
 
+    private void removeGold(int towerType) {
+        actionBar.payForTower(towerType);
+    }
+
     private Tower getTowerAt(int x, int y) {
         return towerHandler.getTowerAt(x, y);
     }
 
     private boolean isTileGrass(int x, int y) {
         int id = lvl[y / 32][x / 32];
-        int tileType = game.getTileManager().getTile(id).getTileType();
+        int tileType = game.getTileHandler().getTile(id).getTileType();
 
         return tileType == GRASS_TILE;
     }
@@ -166,24 +254,58 @@ public class Playing extends GameScene implements SceneMethods {
             return 0;
 
         int id = lvl[y / 32][x / 32];
-        return game.getTileManager().getTile(id).getTileType();
+        return game.getTileHandler().getTile(id).getTileType();
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            selectedTower = null;
+        }
     }
 
     public TowerHandler getTowerHandler() {
         return towerHandler;
     }
 
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            selectedTower = null;
-        }
-    }
-
     public EnemyHandler getEnemyHandler() {
         return enemyHandler;
     }
 
+    public WaveHandler getWaveHandler() {
+        return waveHandler;
+    }
+
+    public void rewardPLayer(int enemyType) {
+        actionBar.addGold(Constants.Enemies.GetReward(enemyType));
+    }
+
     public void shootEnemy(Tower tower, Enemy enemy) {
         projectileHandler.newProjectile(tower, enemy);
+    }
+
+    public void removeTower(Tower displayedTower) {
+        towerHandler.removeTower(displayedTower);
+    }
+
+    public void upgradeTower(Tower displayedTower) {
+        towerHandler.upgradeTower(displayedTower);
+    }
+
+    public void removeOneHeart() {
+        actionBar.removeOneHeart();
+    }
+
+    public void resetEverything() {
+        actionBar.resetEverything();
+        enemyHandler.reset();
+        towerHandler.reset();
+        projectileHandler.reset();
+        waveHandler.reset();
+
+        mouseX = 0;
+        mouseY = 0;
+        selectedTower = null;
+        goldTick = 0;
+        gamePaused = false;
     }
 }

@@ -10,14 +10,16 @@ public class Render {
     }
 
     public void render(Graphics graphics) {
-        if(GameStates.gameState == GameStates.MENU) {
+        if (GameStates.gameState == GameStates.MENU) {
             game.getMenu().render(graphics);
-        } else if(GameStates.gameState == GameStates.PLAYING) {
+        } else if (GameStates.gameState == GameStates.PLAYING) {
             game.getPlaying().render(graphics);
         } else if (GameStates.gameState == GameStates.SETTINGS) {
             game.getSettings().render(graphics);
-        } else if(GameStates.gameState == GameStates.EDIT) {
+        } else if (GameStates.gameState == GameStates.EDIT) {
             game.getEditor().render(graphics);
+        } else if (GameStates.gameState == GameStates.GAME_OVER) {
+            game.getGameOver().render(graphics);
         }
     }
 }

@@ -4,9 +4,9 @@ import helperMethods.ImageFix;
 import helperMethods.LoadSave;
 import objects.Tile;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import static helperMethods.Constants.Tiles.*;
 
 public class TileHandler {
@@ -44,7 +44,7 @@ public class TileHandler {
         roadsStraight.add(ROAD_LR = new Tile(getSprite(8, 0), id++, ROAD_TILE));
         roadsStraight.add(ROAD_TB = new Tile(ImageFix.getRotatedImage(getSprite(8, 0), 90), id++, ROAD_TILE));
 
-		roadsCorners.add(ROAD_B_TO_R = new Tile(getSprite(7, 0), id++, ROAD_TILE));
+        roadsCorners.add(ROAD_B_TO_R = new Tile(getSprite(7, 0), id++, ROAD_TILE));
         roadsCorners.add(ROAD_L_TO_B = new Tile(ImageFix.getRotatedImage(getSprite(7, 0), 90), id++, ROAD_TILE));
         roadsCorners.add(ROAD_L_TO_T = new Tile(ImageFix.getRotatedImage(getSprite(7, 0), 180), id++, ROAD_TILE));
         roadsCorners.add(ROAD_T_TO_R = new Tile(ImageFix.getRotatedImage(getSprite(7, 0), 270), id++, ROAD_TILE));
@@ -75,9 +75,9 @@ public class TileHandler {
         return tiles.get(spriteId).isAnimation();
     }
 
-    private BufferedImage[] getImages(int firstX, int firstY, int secondX, int secondY) {
+    /*private BufferedImage[] getImages(int firstX, int firstY, int secondX, int secondY) {
         return new BufferedImage[]{getSprite(firstX, firstY), getSprite(secondX, secondY)};
-    }
+    }*/
 
     private void loadAtlas() {
         atlas = LoadSave.getSpriteAtlas();
@@ -98,11 +98,26 @@ public class TileHandler {
     private BufferedImage[] getAnimationSprites(int x, int y) {
         BufferedImage[] sprites = new BufferedImage[4];
 
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             sprites[i] = getSprite(x + i, y);
         }
 
         return sprites;
+    }
+
+    public int[][] getTypeArray() {
+        int[][] idArray = LoadSave.GetLevelData();
+        assert idArray != null;
+        int[][] typeArray = new int[idArray.length][idArray[0].length];
+
+        for (int i = 0; i < idArray.length; i++) {
+            for (int j = 0; j < idArray[i].length; j++) {
+                int id = idArray[i][j];
+                typeArray[i][j] = tiles.get(id).getTileType();
+            }
+        }
+
+        return typeArray;
     }
 
     private BufferedImage getSprite(int x, int y) {

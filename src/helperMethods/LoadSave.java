@@ -9,6 +9,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoadSave {
+    public static String homePath = System.getProperty("user.home");
+    public static String saveFolder = "TowerDefense_game";
+    public static String levelFile = "level.txt";
+    public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
+    private static File lvlFile = new File(filePath);
+
+    public static void CreateFolder() {
+        File folder = new File(homePath + File.separator + saveFolder);
+
+        if (!folder.exists())
+            folder.mkdir();
+    }
+
     public static BufferedImage getSpriteAtlas() {
         BufferedImage image = null;
         InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("./sprites/spriteatlas.png");
@@ -22,24 +35,11 @@ public class LoadSave {
         return image;
     }
 
-    public static void CreateFile() {
-        File txtFile = new File("./resources/testTextFile.txt");
-
-        try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void SaveLevel(String name, int[][] idArr, PathPoint start, PathPoint end) {
-        File lvlFile = new File("./resources/" + name + ".txt");
-
-        if(lvlFile.exists()) {
-            WriteToFile(lvlFile, Utils.Flat2DArray(idArr), start, end);
+    public static void SaveLevel(int[][] idArr, PathPoint start, PathPoint end) {
+        if (lvlFile.exists()) {
+            WriteToFile(Utils.Flat2DArray(idArr), start, end);
         } else {
-            // do more
-            return;
+            System.out.println("File doesn't exists: " + lvlFile);
         }
     }
 
@@ -49,21 +49,19 @@ public class LoadSave {
         try {
             Scanner scanner = new Scanner(file);
 
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 list.add(Integer.parseInt(scanner.nextLine()));
             }
 
             scanner.close();
-        } catch (FileNotFoundException e)  {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         return list;
     }
 
-    public static ArrayList<PathPoint> GetLevelPathPoints(String name) {
-        File lvlFile = new File("./resources/new_level.txt");
-
+    public static ArrayList<PathPoint> GetLevelPathPoints() {
         if (lvlFile.exists()) {
             ArrayList<Integer> list = ReadFromFile(lvlFile);
             ArrayList<PathPoint> points = new ArrayList<>();
@@ -72,45 +70,40 @@ public class LoadSave {
 
             return points;
         } else {
-            System.out.println("File doesn't exists: " + name);
+            System.out.println("File doesn't exists: " + lvlFile);
             return null;
         }
     }
 
-    public static int[][] GetLevelData(String name) {
-        File lvlFile = new File("./resources/new_level.txt");
-
+    public static int[][] GetLevelData() {
         if (lvlFile.exists()) {
             ArrayList<Integer> list = ReadFromFile(lvlFile);
             return Utils.ArrayListTo2DInt(list, 20, 20);
         } else {
-            System.out.println("File doesn't exists: " + name);
+            System.out.println("File doesn't exists: " + lvlFile);
             return null;
         }
     }
 
-    public static void CreateLevel (String name, int[] idArr) {
-        File newLevel = new File("./resources/" + name + ".txt");
-
-        if(newLevel.exists()) {
-            System.out.println("lvl exists");
-            return;
+    public static void CreateLevel(int[] idArr) {
+        if (lvlFile.exists()) {
+            System.out.println(lvlFile + " already exists");
         } else {
             try {
-                newLevel.createNewFile();
+                lvlFile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            WriteToFile(newLevel, idArr, new PathPoint(0, 0), new PathPoint(0, 0));
+            WriteToFile(idArr, new PathPoint(0, 0), new PathPoint(0, 0));
         }
     }
 
-    public static void WriteToFile(File f, int[] idArr, PathPoint start, PathPoint end) {
+    public static void WriteToFile(int[] idArr, PathPoint start, PathPoint end) {
         try {
-            PrintWriter printWriter = new PrintWriter(f);
+            PrintWriter printWriter = new PrintWriter(lvlFile);
 
-            for(Integer id: idArr)
+            for (Integer id : idArr)
                 printWriter.println(id);
 
             printWriter.println(start.getX());
