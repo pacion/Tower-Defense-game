@@ -237,7 +237,6 @@ public class ActionBar extends Bar {
     }
 
     private void togglePause() {
-        System.out.println(playing.isGamePaused());
         playing.setGamePaused(!playing.isGamePaused());
 
         if (playing.isGamePaused()) {

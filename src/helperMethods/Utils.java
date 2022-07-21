@@ -52,8 +52,6 @@ public class Utils {
             testDirection %= 5;
 
             testTile = GetTileInDirection(previousTile, testDirection, lastDirection);
-            if (testTile != null)
-                System.out.println(testTile.getX() + " " + testTile.getY());
         }
 
         return testTile;
@@ -102,13 +100,6 @@ public class Utils {
                 int index = i * y + j;
                 newArr[i][j] = list.get(index);
             }
-        }
-
-        for (int j = 0; j < newArr.length; j++) {
-            for (int i = 0; i < newArr[j].length; i++) {
-                System.out.print(newArr[j][i] + "|");
-            }
-            System.out.println();
         }
 
         return newArr;

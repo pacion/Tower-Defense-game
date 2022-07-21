@@ -106,7 +106,7 @@ public class TileHandler {
     }
 
     public int[][] getTypeArray() {
-        int[][] idArray = LoadSave.GetLevelData("new_level");
+        int[][] idArray = LoadSave.GetLevelData();
         assert idArray != null;
         int[][] typeArray = new int[idArray.length][idArray[0].length];
 

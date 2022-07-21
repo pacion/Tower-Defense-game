@@ -52,8 +52,8 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private void loadDefaultLevel() {
-        lvl = LoadSave.GetLevelData("new_level");
-        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
+        lvl = LoadSave.GetLevelData();
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints();
         start = points.get(0);
         end = points.get(1);
     }
