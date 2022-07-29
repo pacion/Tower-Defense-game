@@ -13,7 +13,7 @@ public class LoadSave {
     public static String saveFolder = "TowerDefense_game";
     public static String levelFile = "level.txt";
     public static String filePath = homePath + File.separator + saveFolder + File.separator + levelFile;
-    private static File lvlFile = new File(filePath);
+    private static final File lvlFile = new File(filePath);
 
     public static void CreateFolder() {
         File folder = new File(homePath + File.separator + saveFolder);

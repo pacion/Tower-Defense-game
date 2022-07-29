@@ -13,7 +13,7 @@ import static helperMethods.Constants.Towers.ARCHER;
 import static helperMethods.Utils.GetHypotDistance;
 
 public class TowerHandler {
-    private Playing playing;
+    private final Playing playing;
     private BufferedImage[] towerImages;
     private final ArrayList<Tower> towers = new ArrayList<>();
     private int towerAmount = 0;

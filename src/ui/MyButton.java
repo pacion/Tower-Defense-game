@@ -7,7 +7,7 @@ public class MyButton {
     private String text;
     private Rectangle bounds;
     private boolean mouseOver, mousePressed;
-    private int id;
+    private final int id;
 
     // normal button
     public MyButton(String text, int x, int y, int width, int height) {

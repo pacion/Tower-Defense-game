@@ -17,7 +17,7 @@ public class Toolbar extends Bar {
     private MyButton buttonMenu, buttonSave;
     private MyButton buttonPathStart, buttonPathEnd;
     private BufferedImage pathStart, pathEnd;
-    private Editing editing;
+    private final Editing editing;
     private Tile selectedTile;
 
 

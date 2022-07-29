@@ -23,14 +23,14 @@ import static main.GameStates.SetGameState;
 
 public class Playing extends GameScene implements SceneMethods {
     private int[][] lvl;
-    private ActionBar actionBar;
+    private final ActionBar actionBar;
     private int mouseX, mouseY;
-    private EnemyHandler enemyHandler;
-    private TowerHandler towerHandler;
-    private WaveHandler waveHandler;
+    private final EnemyHandler enemyHandler;
+    private final TowerHandler towerHandler;
+    private final WaveHandler waveHandler;
     private Tower selectedTower;
     private PathPoint start, end;
-    private ProjectileHandler projectileHandler;
+    private final ProjectileHandler projectileHandler;
     private int goldTick = 0;
     private boolean gamePaused;
 

@@ -10,12 +10,12 @@ import java.text.DecimalFormat;
 import static main.GameStates.*;
 
 public class ActionBar extends Bar {
-    private Playing playing;
+    private final Playing playing;
     private MyButton buttonMenu, buttonPause;
     private MyButton[] towerButtons;
     private Tower selectedTower;
     private Tower displayedTower;
-    private DecimalFormat formatter;
+    private final DecimalFormat formatter;
     private int gold = 110;
     private boolean showTowerCost;
     private int towerCostType;

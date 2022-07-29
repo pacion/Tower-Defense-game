@@ -15,12 +15,12 @@ import static helperMethods.Constants.Projectiles.*;
 import static helperMethods.Constants.Towers.*;
 
 public class ProjectileHandler {
-    private Playing playing;
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private final Playing playing;
+    private final ArrayList<Projectile> projectiles = new ArrayList<>();
     private BufferedImage[] projectileImages;
     private BufferedImage[] explosionImages;
     private int projectileId = 0;
-    private ArrayList<Explosion> explosions = new ArrayList<>();
+    private final ArrayList<Explosion> explosions = new ArrayList<>();
 
     public ProjectileHandler(Playing playing) {
         this.playing = playing;

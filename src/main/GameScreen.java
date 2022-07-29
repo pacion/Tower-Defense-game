@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class GameScreen extends JPanel {
     private Dimension size;
-    private Game game;
+    private final Game game;
     private MyMouseListener myMouseListener;
     private KeyboardListener keyboardListener;
 

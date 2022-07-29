@@ -10,11 +10,11 @@ import static helperMethods.Constants.Enemies.*;
 
 public class WaveHandler {
     private Playing playing;
-    private ArrayList<Wave> waves = new ArrayList<>();
-    private int enemySpawnTickLimit = 60 * 1;
+    private final ArrayList<Wave> waves = new ArrayList<>();
+    private final int enemySpawnTickLimit = 60 * 1;
     private int enemySpawnTick = enemySpawnTickLimit;
     int enemyIndex, waveIndex;
-    private int waveTickLimit = 60 * 5;
+    private final int waveTickLimit = 60 * 5;
     private int waveTick = 0;
     private boolean waveStartTimer;
     private boolean waveStartTimerOver;

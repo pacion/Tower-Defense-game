@@ -15,12 +15,12 @@ import static helperMethods.Constants.Enemies.*;
 import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class EnemyHandler {
-    private Playing playing;
-    private BufferedImage[] enemyImages;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private PathPoint start;
-    private PathPoint end;
-    private int HPBarWidth = 20;
+    private final Playing playing;
+    private final BufferedImage[] enemyImages;
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
+    private final PathPoint start;
+    private final PathPoint end;
+    private final int HPBarWidth = 20;
     private BufferedImage slowEffect;
     private int[][] roadDirectionArray;
 
